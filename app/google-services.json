@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "100154524275",
+    "project_id": "unifiedcare-2ffb0",
+    "storage_bucket": "unifiedcare-2ffb0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:100154524275:android:2719e5e57574266288e006",
+        "android_client_info": {
+          "package_name": "com.ucb.unifiedcare"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAcp98OLZYhxqaf8UejadsPgpCXUe6qTBs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
