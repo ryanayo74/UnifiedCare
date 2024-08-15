@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">UnifiedCare</string>
+    <string name="name1">Unified</string>
+    <string name="name2">Care</string>
+    <string name="introtext">"A PLATFORM FOR CHILDREN
+WITH SPECIAL NEEDS"</string>
+    <string name="needs_spinner">Select options</string>
+
+
 </resources>

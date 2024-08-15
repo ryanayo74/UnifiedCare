@@ -13,7 +13,22 @@
         android:theme="@style/Theme.UnifiedCare"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
+            android:name=".parent.ParentsSignUpPage_ChildDetailsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".parent.ParentsSignUpPageActivity"
+            android:exported="false" />
+        <activity
+            android:name=".parent.UserTypePageActivity"
+            android:exported="false" />
+        <activity
+            android:name=".parent.ForgotPasswordPageActivity"
+            android:exported="false" />
+        <activity
+            android:name=".parent.SignInActivity"
+            android:exported="false" />
+        <activity
+            android:name=".parent.WelcomePageActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
