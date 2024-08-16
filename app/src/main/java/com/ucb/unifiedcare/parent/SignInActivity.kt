@@ -54,6 +54,11 @@ class SignInActivity : AppCompatActivity() {
             }
         }
 
+        forgotPassword.setOnClickListener {
+            val intent = Intent(this, ForgotPasswordPageActivity::class.java)
+            startActivity(intent)
+        }
+
         register.setOnClickListener {
             val intent = Intent(this, UserTypePageActivity::class.java)
             startActivity(intent)
