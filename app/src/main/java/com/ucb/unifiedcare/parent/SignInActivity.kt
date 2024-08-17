@@ -23,7 +23,7 @@ import com.google.firebase.ktx.Firebase
 class SignInActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var sharedPreferences: SharedPreferences
-    private val db = Firebase.firestore // Initialize Firestore
+    private val db = Firebase.firestore // Firestore DB wala pako nag butang pero naka connect nani sa firestore ang project
     private var rememberMeChecked = false
 
 
@@ -123,7 +123,7 @@ class SignInActivity : AppCompatActivity() {
                             }
 
                             //REDIRECT TO PARENT HOMEPAGE
-                            //INTENT CODE HERE
+                            //INTENT CODE HERE (MISSING LANG SAH)
 
                         } else {
                             auth.signOut()

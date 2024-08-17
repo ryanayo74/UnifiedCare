@@ -1,4 +1,4 @@
-package com.ucb.unifiedcare.parent
+package therapist
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
@@ -7,11 +7,11 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.ucb.unifiedcare.R
 
-class WelcomePageActivity : AppCompatActivity() {
+class TherapistNewUserSignUpPage2 : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_welcome_page)
+        setContentView(R.layout.activity_therapist_new_user_sign_up_page2)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)

@@ -13,6 +13,33 @@
         android:theme="@style/Theme.UnifiedCare"
         tools:targetApi="31">
         <activity
+            android:name="therapist.TherapistPreferencesPage2"
+            android:exported="false" />
+        <activity
+            android:name="therapist.UnifiedChangeUsername"
+            android:exported="false" />
+        <activity
+            android:name="therapist.TherapistHomePage"
+            android:exported="false" />
+        <activity
+            android:name="therapist.TherapistConfirmationFacilityPageRegistration"
+            android:exported="false" />
+        <activity
+            android:name="therapist.TherapistConfirmationFacilityPageEmail"
+            android:exported="false" />
+        <activity
+            android:name="therapist.TherapistPreferencesPage"
+            android:exported="false" />
+        <activity
+            android:name="therapist.TherapistConfirmationFacilityPage"
+            android:exported="false" />
+        <activity
+            android:name="therapist.TherapistNewUserSignUpPage2"
+            android:exported="false" />
+        <activity
+            android:name="therapist.TherapistSignUpPage"
+            android:exported="false" />
+        <activity
             android:name=".parent.ParentsSignUpPage_ChildDetailsActivity"
             android:exported="false" />
         <activity

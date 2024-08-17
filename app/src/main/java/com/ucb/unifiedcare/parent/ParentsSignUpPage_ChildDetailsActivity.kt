@@ -12,6 +12,7 @@ class ParentsSignUpPage_ChildDetailsActivity : AppCompatActivity() {
 
         val userDetails = intent.getStringArrayExtra("USER_DETAILS")
 
+        // Parents details na gikan sa Parents Page
         if (userDetails != null) {
             val firstName = userDetails[0]
             val lastName = userDetails[1]
@@ -19,7 +20,7 @@ class ParentsSignUpPage_ChildDetailsActivity : AppCompatActivity() {
             val phone = userDetails[3]
             val password = userDetails[4]
 
-            // Use these variables as needed in your child details activity
+
         }
     }
 }

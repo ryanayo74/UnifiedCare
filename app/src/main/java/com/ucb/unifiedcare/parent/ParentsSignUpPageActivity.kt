@@ -26,29 +26,27 @@ class ParentsSignUpPageActivity : AppCompatActivity() {
         val checkBoxShowPassword2: CheckBox = findViewById(R.id.checkBoxShowPassword2)
         val proceedBtn: Button = findViewById(R.id.proceedBtn)
 
-        // Show or hide password for the first checkbox
+        // Show or hide the password
         checkBoxShowPassword.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 editTextPassword.transformationMethod = HideReturnsTransformationMethod.getInstance()
             } else {
                 editTextPassword.transformationMethod = PasswordTransformationMethod.getInstance()
             }
-            // Move cursor to the end of the text
             editTextPassword.setSelection(editTextPassword.text.length)
         }
 
-        // Show or hide confirm password for the second checkbox
+        // Show or hide the confirm password
         checkBoxShowPassword2.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 editTextConfirmPassword.transformationMethod = HideReturnsTransformationMethod.getInstance()
             } else {
                 editTextConfirmPassword.transformationMethod = PasswordTransformationMethod.getInstance()
             }
-            // Move cursor to the end of the text
             editTextConfirmPassword.setSelection(editTextConfirmPassword.text.length)
         }
 
-        // Proceed to the next page with validation
+        // Proceed sa next page nga with validation
         proceedBtn.setOnClickListener {
             val firstName = editTextFirstName.text.toString().trim()
             val lastName = editTextLastName.text.toString().trim()
@@ -96,7 +94,7 @@ class ParentsSignUpPageActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            // Validate password
+            // Validate password sample lang sah ang password para dali rah i test kapoy type
             if (password.isEmpty()) {
                 editTextPassword.error = "Password is required"
                 editTextPassword.requestFocus()
@@ -109,7 +107,7 @@ class ParentsSignUpPageActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            // Validate confirm password
+            // Validate confirm password sample lang sah ang password para dali rah i test kapoy type
             if (confirmPassword.isEmpty()) {
                 editTextConfirmPassword.error = "Please confirm your password"
                 editTextConfirmPassword.requestFocus()
@@ -122,7 +120,7 @@ class ParentsSignUpPageActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            // If all validations pass, proceed to the next activity
+            // If all validations pass, proceed to the next page with details sa parents
             val intent = Intent(this, ParentsSignUpPage_ChildDetailsActivity::class.java)
             intent.putExtra("p_firstName", firstName)
             intent.putExtra("p_lastName", lastName)
