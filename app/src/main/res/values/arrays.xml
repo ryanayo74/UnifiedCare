@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="special_needs_array">
+        <item>SELECT</item>
+        <item>ADHD</item>
+        <item>Autism</item>
+        <item>Down Syndrome</item>
+        <item>Others</item>
+    </string-array>
+</resources>
