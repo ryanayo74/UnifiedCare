@@ -97,12 +97,15 @@ class ParentsSignUpPage_ChildDetailsActivity : AppCompatActivity() {
             "childDetails" to childDetails
         )
 
+        // Concatenate parent's first and last names to create a unique document ID
+        val documentId = "${parentFirstName}_${parentLastName}"
+
         // Save details to Firestore under the "Users" collection -> "parents" sub-collection
-        parentFirstName?.let {
+        if (parentFirstName != null && parentLastName != null) {
             db.collection("Users")
                 .document("parents") // Name of the parent document
                 .collection("parent") // Sub-collection for parent details
-                .document(it) // Use parent's first name as the document ID
+                .document(documentId) // Use concatenated first and last names as the document ID
                 .set(userDetails) // Use set() to set the data in the document with the specified ID
                 .addOnSuccessListener {
                     Toast.makeText(this, "Registration Successful", Toast.LENGTH_SHORT).show()
@@ -110,8 +113,8 @@ class ParentsSignUpPage_ChildDetailsActivity : AppCompatActivity() {
                 .addOnFailureListener { e ->
                     Toast.makeText(this, "Error saving data: ${e.message}", Toast.LENGTH_SHORT).show()
                 }
-        } ?: run {
-            Toast.makeText(this, "Parent first name is required to generate document ID.", Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(this, "Parent first and last names are required to generate document ID.", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -124,3 +127,5 @@ class ParentsSignUpPage_ChildDetailsActivity : AppCompatActivity() {
                 therapyType.isNotEmpty() && ageRange.isNotEmpty() && address.isNotEmpty()
     }
 }
+
+
