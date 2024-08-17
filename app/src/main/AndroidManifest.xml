@@ -13,46 +13,46 @@
         android:theme="@style/Theme.UnifiedCare"
         tools:targetApi="31">
         <activity
-            android:name="therapist.TherapistPreferencesPage2"
+            android:name=".unifiedcare.therapist.TherapistPreferencesPage2"
             android:exported="false" />
         <activity
-            android:name="therapist.UnifiedChangeUsername"
+            android:name=".unifiedcare.therapist.UnifiedChangeUsername"
             android:exported="false" />
         <activity
-            android:name="therapist.TherapistHomePage"
+            android:name=".unifiedcare.therapist.TherapistHomePage"
             android:exported="false" />
         <activity
-            android:name="therapist.TherapistConfirmationFacilityPageRegistration"
+            android:name=".unifiedcare.therapist.TherapistConfirmationFacilityPageRegistration"
             android:exported="false" />
         <activity
-            android:name="therapist.TherapistConfirmationFacilityPageEmail"
+            android:name=".unifiedcare.therapist.TherapistConfirmationFacilityPageEmail"
             android:exported="false" />
         <activity
-            android:name="therapist.TherapistPreferencesPage"
+            android:name=".unifiedcare.therapist.TherapistPreferencesPage"
             android:exported="false" />
         <activity
-            android:name="therapist.TherapistConfirmationFacilityPage"
+            android:name=".unifiedcare.therapist.TherapistConfirmationFacilityPage"
             android:exported="false" />
         <activity
-            android:name="therapist.TherapistNewUserSignUpPage2"
+            android:name=".unifiedcare.therapist.TherapistNewUserSignUpPage2"
             android:exported="false" />
         <activity
-            android:name="therapist.TherapistSignUpPage"
+            android:name=".unifiedcare.therapist.TherapistSignUpPage"
             android:exported="false" />
         <activity
-            android:name=".parent.ParentsSignUpPage_ChildDetailsActivity"
+            android:name=".unifiedcare.parents.ParentsSignUpPage_ChildDetailsActivity"
             android:exported="false" />
         <activity
-            android:name=".parent.ParentsSignUpPageActivity"
+            android:name=".unifiedcare.parents.ParentsSignUpPageActivity"
             android:exported="false" />
         <activity
-            android:name=".parent.UserTypePageActivity"
+            android:name=".unifiedcare.UserTypePageActivity"
             android:exported="false" />
         <activity
-            android:name=".parent.ForgotPasswordPageActivity"
+            android:name=".unifiedcare.parents.ForgotPasswordPageActivity"
             android:exported="false" />
         <activity
-            android:name=".parent.SignInActivity"
+            android:name=".unifiedcare.SignInActivity"
             android:exported="false" />
         <activity
             android:name=".parent.WelcomePageActivity"

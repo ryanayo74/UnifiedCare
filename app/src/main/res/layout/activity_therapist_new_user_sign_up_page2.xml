@@ -10,7 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:context="therapist.TherapistNewUserSignUpPage2">
+        tools:context=".unifiedcare.therapist.TherapistNewUserSignUpPage2">
 
         <ImageView
             android:id="@+id/backButton"

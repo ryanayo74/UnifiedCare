@@ -1,4 +1,4 @@
-package com.ucb.unifiedcare.parent
+package com.ucb.unifiedcare.unifiedcare.parents
 
 import android.content.Intent
 import android.os.Bundle

@@ -1,4 +1,4 @@
-package com.ucb.unifiedcare.parent
+package com.ucb.unifiedcare.unifiedcare.parents
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

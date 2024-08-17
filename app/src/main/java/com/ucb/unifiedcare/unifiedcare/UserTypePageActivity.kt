@@ -1,10 +1,12 @@
-package com.ucb.unifiedcare.parent
+package com.ucb.unifiedcare.unifiedcare
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import com.ucb.unifiedcare.R
+import com.ucb.unifiedcare.unifiedcare.parents.ParentsSignUpPageActivity
+import com.ucb.unifiedcare.unifiedcare.therapist.TherapistSignUpPage
 
 class UserTypePageActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -16,6 +18,11 @@ class UserTypePageActivity : AppCompatActivity() {
 
         parentsRegistration.setOnClickListener {
             val intent = Intent(this, ParentsSignUpPageActivity::class.java)
+            startActivity(intent)
+        }
+
+        therapistRegistration.setOnClickListener {
+            val intent = Intent(this, TherapistSignUpPage::class.java)
             startActivity(intent)
         }
     }

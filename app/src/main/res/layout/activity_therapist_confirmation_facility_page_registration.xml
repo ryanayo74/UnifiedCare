@@ -10,7 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:context="therapist.TherapistConfirmationFacilityPageRegistration">
+        tools:context=".unifiedcare.therapist.TherapistConfirmationFacilityPageRegistration">
 
         <ImageView
             android:id="@+id/backButton"
