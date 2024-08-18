@@ -15,7 +15,7 @@ class WelcomePageActivity : AppCompatActivity() {
 
         val buttonExplore: Button = findViewById(R.id.explorebtn)
 
-        val intent = Intent(this, TherapistHomePage::class.java)
+        val intent = Intent(this, SignInActivity::class.java)
 
         buttonExplore.setOnClickListener {
             startActivity(intent)
