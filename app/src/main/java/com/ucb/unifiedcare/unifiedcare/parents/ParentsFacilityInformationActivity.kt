@@ -1,7 +1,13 @@
 package com.ucb.unifiedcare.unifiedcare.parents
 
+import Adapter.ImageAdapter
+import android.app.Dialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.WindowManager
+import android.widget.Button
 import android.widget.ImageButton
 import androidx.viewpager2.widget.ViewPager2
 import com.ucb.unifiedcare.R
@@ -14,7 +20,7 @@ class ParentsFacilityInformationActivity : AppCompatActivity() {
         val viewPager: ViewPager2 = findViewById(R.id.viewPager)
         val btn_left: ImageButton = findViewById(R.id.arrowleft)
         val btn_right: ImageButton = findViewById(R.id.arrowright)
-
+        val slotBtn: Button = findViewById(R.id.secure_slotsbtn)
 
         // Example image list (use your own drawables or URLs)
         val images = listOf(
@@ -43,5 +49,36 @@ class ParentsFacilityInformationActivity : AppCompatActivity() {
             }
             viewPager.setCurrentItem(currentPage, true)
         }
+
+        slotBtn.setOnClickListener{
+            showCustomDialog()
+        }
+
+    }
+    private fun showCustomDialog(){
+        val dialog = Dialog(this)
+        val dialogView: View = LayoutInflater.from(this).inflate(R.layout.custome_dialog, null)
+        dialog.setContentView(dialogView)
+
+        val window = dialog.window
+        window?.setLayout(
+            WindowManager.LayoutParams.MATCH_PARENT,  // Width
+            WindowManager.LayoutParams.WRAP_CONTENT   // Height
+        )
+
+        val selectBtn: Button = dialogView.findViewById(R.id.select_btn)
+        val cancelBtn: Button = dialogView.findViewById(R.id.cancel_btn)
+        val mondayBtn: ImageButton = dialogView.findViewById(R.id.mon)
+        val tueBtn: ImageButton = dialogView.findViewById(R.id.tue)
+        val wedBtn: ImageButton = dialogView.findViewById(R.id.wed)
+        val thurBtn: ImageButton = dialogView.findViewById(R.id.thur)
+        val friBtn: ImageButton = dialogView.findViewById(R.id.fri)
+        val satBtn: ImageButton = dialogView.findViewById(R.id.sat)
+        val sunBtn: ImageButton = dialogView.findViewById(R.id.sun)
+
+        cancelBtn.setOnClickListener{
+            dialog.dismiss()
+        }
+        dialog.show()
     }
 }
