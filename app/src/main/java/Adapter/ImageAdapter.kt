@@ -1,4 +1,4 @@
-package com.ucb.unifiedcare.unifiedcare.parents
+package Adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -25,6 +25,7 @@ class ImageAdapter (private val imageList: List<Int>) :
         holder.imageView.setImageResource(imageList[position])
     }
 //comment ni sha
+    //comment nsd
     override fun getItemCount(): Int {
         return imageList.size
     }
