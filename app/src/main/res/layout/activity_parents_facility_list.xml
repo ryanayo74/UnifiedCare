@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".unifiedcare.parents.ParentsFacilityListActivity">
+    <ImageView
+        android:id="@+id/profile_icon"
+        android:layout_width="99dp"
+        android:layout_height="50dp"
+        android:src="@drawable/profile"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.012"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.074"
+        app:tint="@color/blue" />
+
+    <TextView
+        android:id="@+id/name1"
+        android:layout_width="113dp"
+        android:layout_height="49dp"
+        android:layout_marginBottom="776dp"
+        android:text="@string/name1"
+        android:textColor="@color/pink"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.402"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:layout_width="76dp"
+        android:layout_height="45dp"
+        android:layout_marginBottom="780dp"
+        android:text="@string/name2"
+        android:textColor="@color/black"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.644"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/notif"
+        android:layout_width="99dp"
+        android:layout_height="50dp"
+        android:src="@drawable/notification"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.993"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.073" />
+
+    <Button
+        android:id="@+id/therapistslistbtn"
+        android:layout_width="134dp"
+        android:layout_height="51dp"
+        android:layout_marginBottom="704dp"
+        android:background="@drawable/round"
+        android:backgroundTint="@color/pink"
+        android:padding="15dp"
+        android:text="Therapists"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.256"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/facilitylistbtn"
+        android:layout_width="140dp"
+        android:layout_height="53dp"
+        android:layout_marginBottom="704dp"
+        android:background="@drawable/round"
+        android:backgroundTint="@color/white"
+        android:padding="15dp"
+        android:text="Facilities"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.797"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/reco_id"
+        android:layout_width="315dp"
+        android:layout_height="41dp"
+        android:padding="5dp"
+        android:text="Recommended Facilities"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="22sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.22" />
+
+    <ListView
+        android:id="@+id/listview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="10.0sp"
+        android:padding="20dp"
+        android:scrollbars="vertical"
+        app:layout_constraintTop_toBottomOf="@+id/reco_id"
+        tools:layout_editor_absoluteX="0dp"
+        tools:listitem="@layout/facility_list_item" />
+</androidx.constraintlayout.widget.ConstraintLayout>
