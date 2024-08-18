@@ -24,7 +24,7 @@ class ImageAdapter (private val imageList: List<Int>) :
         holder.itemView.layoutParams.height = ViewGroup.LayoutParams.MATCH_PARENT
         holder.imageView.setImageResource(imageList[position])
     }
-
+//comment ni sha
     override fun getItemCount(): Int {
         return imageList.size
     }
