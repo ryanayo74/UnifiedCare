@@ -17,10 +17,14 @@
             android:id="@+id/profileImage"
             android:layout_width="40dp"
             android:layout_height="40dp"
+            android:layout_marginStart="8dp"
+            android:contentDescription="Profile Icon"
+            android:elevation="4dp"
             android:src="@drawable/ic_bell"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
 
         <ImageView
             android:id="@+id/notificationIcon"
@@ -38,6 +42,7 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:textColor="@android:color/black"
             android:textSize="30sp"
+            android:textStyle="bold"
             android:layout_marginTop="10dp"
             app:layout_constraintStart_toEndOf="@+id/profileImage"
             app:layout_constraintEnd_toStartOf="@+id/notificationIcon"
@@ -45,31 +50,62 @@
             app:layout_constraintBottom_toBottomOf="@+id/profileImage"
             app:layout_constraintHorizontal_bias="0.5" />
 
+        <Button
+            android:id="@+id/facilityButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/rounded_button"
+            android:backgroundTint="@color/background_color"
+            android:text="Facility"
+            android:textColor="@color/black"
+            android:textAllCaps="false"
+            app:layout_constraintEnd_toStartOf="@+id/therapistButton"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/appName" />
+
+        <Button
+            android:id="@+id/therapistButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="30dp"
+            android:background="@drawable/rounded_button"
+            android:backgroundTint="@color/white"
+            android:text="Therapist"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/facilityButton"
+            app:layout_constraintTop_toBottomOf="@+id/appName" />
 
         <TextView
-            android:id="@+id/recommendedFacilitiesTitle"
+            android:id="@+id/recommendedFacilities"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:text="Recommended Facilities"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="@android:color/black"
-            android:layout_marginTop="20dp"
             android:textSize="30sp"
-            app:layout_constraintTop_toBottomOf="@+id/profileImage"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.387"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/facilityButton" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/facilityRecyclerView"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:clipToPadding="false"
-            android:paddingTop="8dp"
-            android:scrollbars="vertical"
-            app:layout_constraintTop_toBottomOf="@+id/recommendedFacilitiesTitle"
-            app:layout_constraintStart_toStartOf="parent"
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/recommendedFacilities"
+            app:layout_constraintVertical_bias="1.0" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
