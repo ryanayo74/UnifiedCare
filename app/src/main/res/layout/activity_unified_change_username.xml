@@ -15,8 +15,8 @@
 
         <ImageView
             android:id="@+id/logo"
-            android:layout_width="170dp"
-            android:layout_height="150dp"
+            android:layout_width="184dp"
+            android:layout_height="98dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="24dp"
             android:scaleType="centerCrop"
@@ -48,26 +48,27 @@
             android:id="@+id/changeUsername"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="44dp"
+            android:layout_marginTop="52dp"
             android:text="Change Username"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="@android:color/black"
-            app:layout_constraintTop_toBottomOf="@+id/UnifiedCareTitle"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="16dp" />
+            app:layout_constraintTop_toBottomOf="@+id/UnifiedCareTitle" />
 
         <EditText
-            android:id="@+id/changePasswordEditText"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
+            android:id="@+id/changeUsernameEditText"
+            android:layout_width="340dp"
+            android:layout_height="52dp"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="20dp"
             android:background="@drawable/rounded_edittext"
             android:hint="******"
             android:inputType="textPassword"
             android:padding="12dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.677"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/changeUsername" />
 
@@ -75,29 +76,30 @@
             android:id="@+id/submitButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Submit"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/round_corner"
             android:backgroundTint="@color/white"
+            android:text="Submit"
             android:textColor="@color/black"
-            android:layout_marginStart="30dp"
-            app:layout_constraintTop_toBottomOf="@+id/changePasswordEditText"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/cancelButton"
-            android:layout_marginTop="40dp"
-            android:layout_marginEnd="8dp"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/changeUsernameEditText" />
 
         <Button
             android:id="@+id/cancelButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Cancel"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="30dp"
+            android:background="@drawable/round_corner"
             android:backgroundTint="@color/white"
+            android:text="Cancel"
             android:textColor="@color/black"
-            app:layout_constraintTop_toBottomOf="@+id/changePasswordEditText"
-            app:layout_constraintStart_toEndOf="@+id/submitButton"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="40dp"
-            android:layout_marginEnd="30dp"/>
-
+            app:layout_constraintStart_toEndOf="@+id/submitButton"
+            app:layout_constraintTop_toBottomOf="@+id/changeUsernameEditText" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

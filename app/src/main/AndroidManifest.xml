@@ -25,6 +25,9 @@
             android:name=".unifiedcare.parents.ParentsFacilityListActivity"
             android:exported="false" />
         <activity
+            android:name=".unifiedcare.therapist.TherapistConfirmationFacilityPart"
+            android:exported="false" />
+        <activity
             android:name=".unifiedcare.therapist.TherapistPreferencesPage2"
             android:exported="false" />
         <activity

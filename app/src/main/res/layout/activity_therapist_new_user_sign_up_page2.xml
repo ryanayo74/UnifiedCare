@@ -13,78 +13,160 @@
         tools:context=".unifiedcare.therapist.TherapistNewUserSignUpPage2">
 
         <ImageView
-            android:id="@+id/backButton"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:src="@drawable/back"
+            android:id="@+id/back"
+            android:layout_width="219dp"
+            android:layout_height="175dp"
+            android:layout_marginTop="-80dp"
+            android:layout_marginLeft="-95dp"
+            android:src="@drawable/circle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/black" />
+
+        <ImageView
+            android:id="@+id/backArrow"
+            android:layout_width="49dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="20dp"
+            android:src="@drawable/arrowback"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.044" />
+
+        <ImageView
+            android:id="@+id/circ_design"
+            android:layout_width="39dp"
+            android:layout_height="40dp"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/info_icon"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.336"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.176" />
+        <ImageView
+            android:id="@+id/line"
+            android:layout_width="39dp"
+            android:layout_height="40dp"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/horiline"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.411"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.176" />
+
+        <ImageView
+            android:id="@+id/line2"
+            android:layout_width="39dp"
+            android:layout_height="40dp"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/horiline"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.465"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.176" />
+
+        <ImageView
+            android:id="@+id/line3"
+            android:layout_width="39dp"
+            android:layout_height="40dp"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/horiline"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.516"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.176" />
+
+        <ImageView
+            android:id="@+id/line4"
+            android:layout_width="39dp"
+            android:layout_height="40dp"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/horiline"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.588"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.176" />
+
+        <ImageView
+            android:id="@+id/circ_design2"
+            android:layout_width="39dp"
+            android:layout_height="40dp"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/circle"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.663"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.176"
+            app:tint="@color/white" />
 
         <TextView
             android:id="@+id/createAccountTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
             android:text="CREATE ACCOUNT"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:textColor="@android:color/black"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.418"
-            app:layout_constraintStart_toEndOf="@+id/backButton"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/indicatorImage"
-            android:layout_width="150dp"
-            android:layout_height="26dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="60dp"
-            android:src="@drawable/indicatorimage"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.497"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/createAccountTitle"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/back"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/stepIndicator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Step 1 of 2"
+            android:layout_marginTop="16dp"
+            android:text="Step 2 of 2"
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
             android:textColor="@android:color/black"
+            android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.919"
+            app:layout_constraintHorizontal_bias="0.88"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/createAccountTitle" />
 
         <TextView
-            android:id="@+id/specializationTitle"
+            android:id="@+id/specialization"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="24dp"
             android:text="Specialization"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="@android:color/black"
-            android:layout_marginTop="50dp"
-            android:layout_marginStart="20dp"
-            app:layout_constraintTop_toBottomOf="@+id/indicatorImage"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/line" />
 
         <CheckBox
             android:id="@+id/autismCheckBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
             android:text="Autism"
-            android:layout_marginStart="20dp"
-            app:layout_constraintTop_toBottomOf="@+id/specializationTitle"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="0dp" />
+            app:layout_constraintTop_toBottomOf="@+id/specialization" />
 
         <CheckBox
             android:id="@+id/adhdCheckBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
+            android:layout_marginStart="40dp"
             android:text="ADHD"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/autismCheckBox" />
@@ -93,34 +175,33 @@
             android:id="@+id/downSyndromeCheckBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
             android:text="Down Syndrome"
-            android:layout_marginStart="20dp"
-            app:layout_constraintTop_toBottomOf="@+id/adhdCheckBox"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="0dp" />
+            app:layout_constraintTop_toBottomOf="@+id/adhdCheckBox" />
 
         <TextView
-            android:id="@+id/addressTitle"
+            android:id="@+id/address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="16dp"
             android:text="Address"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="@android:color/black"
-            android:layout_marginTop="16dp"
-            android:layout_marginStart="20dp"
-            app:layout_constraintTop_toBottomOf="@+id/downSyndromeCheckBox"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/downSyndromeCheckBox" />
 
         <EditText
             android:id="@+id/addressInput"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:hint="Select Location"
+            android:layout_width="340dp"
+            android:layout_height="52dp"
             android:background="@drawable/rounded_edittext"
+            android:hint="Select Location"
             android:padding="12dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
-            app:layout_constraintTop_toBottomOf="@+id/addressTitle"
+            app:layout_constraintTop_toBottomOf="@+id/address"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="8dp" />
@@ -129,43 +210,50 @@
             android:id="@+id/therapyTypeTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="20dp"
             android:text="Therapy type"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="@android:color/black"
-            android:layout_marginTop="16dp"
-            android:layout_marginStart="20dp"
-            app:layout_constraintTop_toBottomOf="@+id/addressInput"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/addressInput" />
+
 
         <Spinner
             android:id="@+id/therapyTypeSpinner"
             android:layout_width="350dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:entries="@array/therapy_types"
-            app:layout_constraintTop_toBottomOf="@+id/therapyTypeTitle"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="8dp" />
-
+            app:layout_constraintHorizontal_bias="0.59"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/therapyTypeTitle" />
 
         <Button
             android:id="@+id/signUpButton"
-            android:layout_width="250dp"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:text="Sign Up"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/rounded_button"
             android:backgroundTint="@color/white"
+            android:padding="20dp"
+            android:text="Sign Up"
             android:textColor="@color/black"
-            app:layout_constraintTop_toBottomOf="@+id/therapyTypeSpinner"
-            app:layout_constraintStart_toStartOf="parent"
+            android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="50dp" />
+            app:layout_constraintHorizontal_bias="0.502"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/therapyTypeSpinner" />
 
         <TextView
             android:id="@+id/backLink"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Back"
+            android:textSize="16sp"
             android:textColor="@android:color/black"
+            android:layout_marginTop="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/signUpButton" />
