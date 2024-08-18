@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.widget.Button
 import com.ucb.unifiedcare.R
 import com.ucb.unifiedcare.unifiedcare.SignInActivity
+import com.ucb.unifiedcare.unifiedcare.therapist.TherapistHomePage
 
 class WelcomePageActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -14,7 +15,7 @@ class WelcomePageActivity : AppCompatActivity() {
 
         val buttonExplore: Button = findViewById(R.id.explorebtn)
 
-        val intent = Intent(this, SignInActivity::class.java)
+        val intent = Intent(this, TherapistHomePage::class.java)
 
         buttonExplore.setOnClickListener {
             startActivity(intent)
