@@ -135,7 +135,7 @@ class ParentsSignUpPage_ChildDetailsActivity : AppCompatActivity() {
         if (parentFirstName != null && parentLastName != null) {
             db.collection("Users")
                 .document("parents") // Name of the parent document
-                .collection("parent") // Sub-collection for parent details
+                .collection("newUserParent") // Sub-collection for parent details
                 .document(documentId) // Use concatenated parent first name and last name as the document ID
                 .set(userDetails) // Use set() to set the data in the document with the specified ID
                 .addOnSuccessListener {

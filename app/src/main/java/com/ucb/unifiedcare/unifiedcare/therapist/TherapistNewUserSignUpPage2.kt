@@ -73,7 +73,7 @@ class TherapistNewUserSignUpPage2 : AppCompatActivity() {
                             // Save details to Firestore under the "Users" collection -> "therapists" sub-collection
                             firestore.collection("Users")
                                 .document("therapists") // Name of the parent document
-                                .collection("therapist") // Sub-collection for therapist details
+                                .collection("newUserTherapist") // Sub-collection for therapist details
                                 .document(documentId) // Use concatenated first name and last name as the document ID
                                 .set(therapistData) // Use set() to set the data in the document with the specified ID
                                 .addOnSuccessListener {
