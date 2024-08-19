@@ -2,7 +2,6 @@
 <resources>
 
     <string-array name="special_needs_array">
-        <item>SELECT</item>
         <item>ADHD</item>
         <item>Autism</item>
         <item>Down Syndrome</item>
@@ -23,12 +22,11 @@
         </string-array>
 
         <string-array name="age_range_array">
-            <item>0-2 years</item>
-            <item>3-5 years</item>
-            <item>6-8 years</item>
-            <item>9-11 years</item>
-            <item>12-14 years</item>
-            <item>15-17 years</item>
+            <item>3–5 years</item>
+            <item>6–8 years</item>
+            <item>9–11 years</item>
+            <item>12–14 years</item>
+            <item>15–17 years</item>
             <item>18+ years</item>
         </string-array>
 

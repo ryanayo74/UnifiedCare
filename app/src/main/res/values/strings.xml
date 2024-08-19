@@ -20,9 +20,9 @@ WITH SPECIAL NEEDS"</string>
         <item>Down Syndrome</item>
     </string-array>
     <string-array name="age_range">
-        <item>0-12 months</item>
-        <item>2-5 years old</item>
-        <item>6-12 years old</item>
+        <item>0–12 months</item>
+        <item>2–5 years old</item>
+        <item>6–12 years old</item>
     </string-array>
 
 

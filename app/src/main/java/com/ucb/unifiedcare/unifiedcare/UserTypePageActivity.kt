@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.widget.Button
 import com.ucb.unifiedcare.R
 import com.ucb.unifiedcare.unifiedcare.parents.ParentsSignUpPageActivity
+import com.ucb.unifiedcare.unifiedcare.therapist.TherapistConfirmationFacilityPage
 import com.ucb.unifiedcare.unifiedcare.therapist.TherapistSignUpPage
 
 class UserTypePageActivity : AppCompatActivity() {
@@ -22,7 +23,7 @@ class UserTypePageActivity : AppCompatActivity() {
         }
 
         therapistRegistration.setOnClickListener {
-            val intent = Intent(this, TherapistSignUpPage::class.java)
+            val intent = Intent(this, TherapistConfirmationFacilityPage::class.java)
             startActivity(intent)
         }
     }

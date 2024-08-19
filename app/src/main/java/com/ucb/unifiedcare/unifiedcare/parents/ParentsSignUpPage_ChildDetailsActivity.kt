@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
 import com.ucb.unifiedcare.R
 import com.ucb.unifiedcare.unifiedcare.SignInActivity
