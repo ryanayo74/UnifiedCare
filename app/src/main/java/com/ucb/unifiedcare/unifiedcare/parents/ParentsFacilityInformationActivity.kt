@@ -57,7 +57,7 @@ class ParentsFacilityInformationActivity : AppCompatActivity() {
     }
     private fun showCustomDialog(){
         val dialog = Dialog(this)
-        val dialogView: View = LayoutInflater.from(this).inflate(R.layout.custome_dialog, null)
+        val dialogView: View = LayoutInflater.from(this).inflate(R.layout.available_date_custom_dialog, null)
         dialog.setContentView(dialogView)
 
         val window = dialog.window
@@ -65,7 +65,6 @@ class ParentsFacilityInformationActivity : AppCompatActivity() {
             WindowManager.LayoutParams.MATCH_PARENT,  // Width
             WindowManager.LayoutParams.WRAP_CONTENT   // Height
         )
-
         val selectBtn: Button = dialogView.findViewById(R.id.select_btn)
         val cancelBtn: Button = dialogView.findViewById(R.id.cancel_btn)
         val mondayBtn: ImageButton = dialogView.findViewById(R.id.mon)
@@ -80,5 +79,8 @@ class ParentsFacilityInformationActivity : AppCompatActivity() {
             dialog.dismiss()
         }
         dialog.show()
+    }
+    private fun showCustomTimeDialog(){
+
     }
 }
