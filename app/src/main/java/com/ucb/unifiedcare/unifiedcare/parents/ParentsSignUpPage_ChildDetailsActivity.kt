@@ -85,18 +85,29 @@ class ParentsSignUpPage_ChildDetailsActivity : AppCompatActivity() {
                     // Sign in success, save the user's data
                     val user = auth.currentUser
                     if (user != null) {
-                        // Use actual parent first name and last name from the parameters
-                        saveToFirestore(
-                            firstName, lastName, specialNeeds, therapyType, ageRange, address,
-                            parentFirstName, parentLastName, email, parentPhone, password
-                        )
+                        // Send email verification
+                        user.sendEmailVerification()
+                            .addOnCompleteListener { verificationTask ->
+                                if (verificationTask.isSuccessful) {
+                                    Toast.makeText(this, "Verification email sent. Please check your inbox.", Toast.LENGTH_SHORT).show()
+
+                                    // Save to Firestore after sending email verification
+                                    saveToFirestore(
+                                        firstName, lastName, specialNeeds, therapyType, ageRange, address,
+                                        parentFirstName, parentLastName, email, parentPhone, password
+                                    )
+                                } else {
+                                    Toast.makeText(this, "Failed to send verification email: ${verificationTask.exception?.message}", Toast.LENGTH_SHORT).show()
+                                }
+                            }
                     }
                 } else {
-                    // If sign in fails, display a message to the user.
+                    // If sign-in fails, display a message to the user.
                     Toast.makeText(this, "Authentication Failed: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
                 }
             }
     }
+
 
 
     private fun saveToFirestore(

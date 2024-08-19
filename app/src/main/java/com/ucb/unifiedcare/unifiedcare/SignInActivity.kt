@@ -20,6 +20,8 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.ucb.unifiedcare.unifiedcare.parents.ForgotPasswordPageActivity
+import com.ucb.unifiedcare.unifiedcare.parents.ParentsFacilityListActivity
+import com.ucb.unifiedcare.unifiedcare.therapist.TherapistHomePage
 
 class SignInActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
@@ -100,7 +102,6 @@ class SignInActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-
             auth.signInWithEmailAndPassword(inputUserName, inputPassword)
                 .addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
@@ -123,22 +124,34 @@ class SignInActivity : AppCompatActivity() {
                                 }
                             }
 
-                            //REDIRECT TO PARENT HOMEPAGE
-                            //INTENT CODE HERE (MISSING LANG SAH)
+                            // Fetch the user's document from Firestore
+                            val userId = user.uid
 
+                            // Check if the user document exists in the "parents" sub-collection
+                            db.collection("Users").document("parents").collection("newUserParent").document(userId).get()
+                                .addOnSuccessListener { document ->
+                                    if (document.exists()) {
+                                        // Redirect to parent homepage
+                                        val intent = Intent(this, ParentsFacilityListActivity::class.java)
+                                        startActivity(intent)
+                                    } else {
+                                        // If not in parents, assume therapist and redirect accordingly
+                                        val intent = Intent(this, TherapistHomePage::class.java)
+                                        startActivity(intent)
+                                    }
+                                }
+                                .addOnFailureListener {
+                                    Toast.makeText(this, "Failed to retrieve user data.", Toast.LENGTH_SHORT).show()
+                                }
                         } else {
                             auth.signOut()
-                            Toast.makeText(
-                                this,
-                                "Please verify your email address.",
-                                Toast.LENGTH_SHORT
-                            ).show()
+                            Toast.makeText(this, "Please verify your email address.", Toast.LENGTH_SHORT).show()
                         }
                     } else {
-                        Toast.makeText(this, "Incorrect Email or Password.", Toast.LENGTH_SHORT)
-                            .show()
+                        Toast.makeText(this, "Incorrect Email or Password.", Toast.LENGTH_SHORT).show()
                     }
                 }
         }
+
     }
 }
