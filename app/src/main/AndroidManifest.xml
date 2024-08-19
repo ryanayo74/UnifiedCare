@@ -13,9 +13,11 @@
         android:theme="@style/Theme.UnifiedCare"
         tools:targetApi="34">
         <activity
+            android:name=".unifiedcare.parents.SecureSlotActivity"
+            android:exported="false" />
+        <activity
             android:name=".unifiedcare.parents.ParentsFacilityInformationActivity"
-            android:exported="false">
-        </activity>
+            android:exported="false"></activity>
         <activity
             android:name=".unifiedcare.parents.ParentsFacilityListActivity"
             android:exported="false" />
@@ -72,7 +74,6 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
     </application>
 

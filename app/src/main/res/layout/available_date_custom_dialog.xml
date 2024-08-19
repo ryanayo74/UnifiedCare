@@ -11,6 +11,7 @@
         android:layout_width="378dp"
         android:layout_height="343dp"
         android:background="@drawable/round"
+        android:backgroundTint="@color/dark_grey"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -156,7 +157,8 @@
             app:layout_constraintHorizontal_bias="0.131"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/dialogTitle"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintVertical_bias="0.0"
+            app:tint="@color/gray" />
 
         <ImageButton
             android:id="@+id/thur"
@@ -171,7 +173,8 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/dialogTitle"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintVertical_bias="0.0"
+            app:tint="@color/white" />
 
         <ImageButton
             android:id="@+id/sat"
@@ -185,7 +188,8 @@
             app:layout_constraintHorizontal_bias="0.539"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.602" />
+            app:layout_constraintVertical_bias="0.602"
+            app:tint="@color/white" />
 
         <ImageButton
             android:id="@+id/sun"
@@ -200,7 +204,8 @@
             app:layout_constraintHorizontal_bias="0.814"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/mon"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintVertical_bias="0.0"
+            app:tint="@color/white" />
 
         <ImageButton
             android:id="@+id/tue"
@@ -228,7 +233,8 @@
             app:layout_constraintHorizontal_bias="0.223"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/mon"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintVertical_bias="0.0"
+            app:tint="@color/white" />
 
         <ImageButton
             android:id="@+id/mon"
@@ -278,6 +284,4 @@
             app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>
