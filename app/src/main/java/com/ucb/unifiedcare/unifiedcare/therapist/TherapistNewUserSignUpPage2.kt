@@ -70,22 +70,31 @@ class TherapistNewUserSignUpPage2 : AppCompatActivity() {
                 auth.createUserWithEmailAndPassword(email!!, password!!)
                     .addOnCompleteListener { task ->
                         if (task.isSuccessful) {
-                            // Save details to Firestore under the "Users" collection -> "therapists" sub-collection
-                            firestore.collection("Users")
-                                .document("therapists") // Name of the parent document
-                                .collection("newUserTherapist") // Sub-collection for therapist details
-                                .document(documentId) // Use concatenated first name and last name as the document ID
-                                .set(therapistData) // Use set() to set the data in the document with the specified ID
-                                .addOnSuccessListener {
-                                    Toast.makeText(this, "Registration Successful", Toast.LENGTH_SHORT).show()
+                            // Send verification email
+                            val user = auth.currentUser
+                            user?.sendEmailVerification()
+                                ?.addOnCompleteListener { emailTask ->
+                                    if (emailTask.isSuccessful) {
+                                        // Save details to Firestore under the "Users" collection -> "therapists" sub-collection
+                                        firestore.collection("Users")
+                                            .document("therapists")
+                                            .collection("newUserTherapist")
+                                            .document(documentId)
+                                            .set(therapistData)
+                                            .addOnSuccessListener {
+                                                Toast.makeText(this, "Registration Successful. Please check your email for verification.", Toast.LENGTH_LONG).show()
 
-                                    // Redirect to SignInActivity after successful registration
-                                    val intent = Intent(this, SignInActivity::class.java)
-                                    startActivity(intent)
-                                    finish() // Close the current activity so the user can't navigate back to it
-                                }
-                                .addOnFailureListener { e ->
-                                    Toast.makeText(this, "Error saving data: ${e.message}", Toast.LENGTH_SHORT).show()
+                                                // Redirect to SignInActivity after successful registration
+                                                val intent = Intent(this, SignInActivity::class.java)
+                                                startActivity(intent)
+                                                finish() // Close the current activity so the user can't navigate back to it
+                                            }
+                                            .addOnFailureListener { e ->
+                                                Toast.makeText(this, "Error saving data: ${e.message}", Toast.LENGTH_SHORT).show()
+                                            }
+                                    } else {
+                                        Toast.makeText(this, "Failed to send verification email: ${emailTask.exception?.message}", Toast.LENGTH_LONG).show()
+                                    }
                                 }
                         } else {
                             Toast.makeText(this, "Authentication failed: ${task.exception?.message}", Toast.LENGTH_LONG).show()
