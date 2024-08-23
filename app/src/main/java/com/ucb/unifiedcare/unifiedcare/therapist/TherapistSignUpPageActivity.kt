@@ -7,7 +7,7 @@ import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import com.ucb.unifiedcare.R
 
-class TherapistSignUpPage : AppCompatActivity() {
+class TherapistSignUpPageActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_therapist_sign_up_page)
@@ -53,7 +53,7 @@ class TherapistSignUpPage : AppCompatActivity() {
                 }
                 else -> {
                     // All fields are filled, proceed to the next activity
-                    val intent = Intent(this, TherapistNewUserSignUpPage2::class.java).apply {
+                    val intent = Intent(this, TherapistNewUserSignUpPage2Activity::class.java).apply {
                         putExtra("firstName", firstName.text.toString())
                         putExtra("lastName", lastName.text.toString())
                         putExtra("email", email.text.toString())

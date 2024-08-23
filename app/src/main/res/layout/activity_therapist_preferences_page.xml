@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingTop="20dp"
-    tools:context=".unifiedcare.therapist.TherapistPreferencesPage">
+    tools:context=".unifiedcare.therapist.TherapistPreferencesPageActivity">
 
         <ImageView
             android:id="@+id/logo"
