@@ -2,7 +2,6 @@ package com.ucb.unifiedcare.unifiedcare.therapist
 
 import Adapter.FacilityAdapter
 import ModelClass.Facility
-import android.R
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -12,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 
-class TherapistHomePage : AppCompatActivity() {
+class TherapistHomePageActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()

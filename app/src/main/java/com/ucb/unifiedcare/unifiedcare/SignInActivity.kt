@@ -21,7 +21,7 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.ucb.unifiedcare.unifiedcare.parents.ForgotPasswordPageActivity
 import com.ucb.unifiedcare.unifiedcare.parents.ParentsFacilityListActivity
-import com.ucb.unifiedcare.unifiedcare.therapist.TherapistHomePage
+import com.ucb.unifiedcare.unifiedcare.therapist.TherapistHomePageActivity
 
 class SignInActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
@@ -136,7 +136,7 @@ class SignInActivity : AppCompatActivity() {
                                         startActivity(intent)
                                     } else {
                                         // If not in parents, assume therapist and redirect accordingly
-                                        val intent = Intent(this, TherapistHomePage::class.java)
+                                        val intent = Intent(this, TherapistHomePageActivity::class.java)
                                         startActivity(intent)
                                     }
                                 }

@@ -13,7 +13,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.ucb.unifiedcare.R
 import com.ucb.unifiedcare.unifiedcare.SignInActivity
 
-class TherapistNewUserSignUpPage2 : AppCompatActivity() {
+class TherapistNewUserSignUpPage2Activity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var firestore: FirebaseFirestore
 

@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.ucb.unifiedcare.R
 
 
-class TherapistConfirmationFacilityPage : AppCompatActivity() {
+class TherapistConfirmationFacilityPageActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -18,12 +18,12 @@ class TherapistConfirmationFacilityPage : AppCompatActivity() {
         val noButton: Button = findViewById(R.id.noButton)
 
         yesButton.setOnClickListener {
-            val intent = Intent(this, TherapistConfirmationFacilityPageEmail::class.java)
+            val intent = Intent(this, TherapistConfirmationFacilityPageEmailActivity::class.java)
             startActivity(intent)
         }
 
         noButton.setOnClickListener {
-            val intent = Intent(this, TherapistSignUpPage::class.java)
+            val intent = Intent(this, TherapistSignUpPageActivity::class.java)
             startActivity(intent)
         }
 

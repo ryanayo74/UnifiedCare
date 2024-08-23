@@ -29,11 +29,11 @@ class FacilityAdapter(private val facilities: List<Facility>) :
     }
 
     inner class FacilityViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val facilityName: TextView = itemView.findViewById(R.id.facilityName)
+        private val facilityName: TextView = itemView.findViewById(R.id.facilityname)
         private val facilityDescription: TextView = itemView.findViewById(R.id.facilityDescription)
-        private val facilityImage: ImageView = itemView.findViewById(R.id.facilityImage)
-        private val facilityRating: TextView = itemView.findViewById(R.id.facilityRating)
-        private val favoriteButton: ToggleButton = itemView.findViewById(R.id.favoriteButton)
+        private val facilityImage: ImageView = itemView.findViewById(R.id.listImage)
+        private val facilityRating: TextView = itemView.findViewById(R.id.ratingBar)
+        private val favoriteButton: ToggleButton = itemView.findViewById(R.id.heartbtn)
 
         fun bind(facility: Facility) {
              Log.d("FacilityAdapter", "Binding facility: ${facility.name}")

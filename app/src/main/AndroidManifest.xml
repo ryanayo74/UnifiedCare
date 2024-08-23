@@ -13,43 +13,61 @@
         android:theme="@style/Theme.UnifiedCare"
         tools:targetApi="34">
         <activity
+            android:name=".unifiedcare.ProfilePageActivity"
+            android:exported="false" />
+        <activity
+            android:name=".unifiedcare.therapist.TherapistSideMenuActivity"
+            android:exported="false" />
+        <activity
+            android:name=".unifiedcare.therapist.TherapistApplyHomePageActivity"
+            android:exported="false" />
+        <activity
+            android:name=".unifiedcare.therapist.TherapistWaitApprovalActivity"
+            android:exported="false" />
+        <activity
+            android:name=".unifiedcare.therapist.TherapistListStudentActivity"
+            android:exported="false" />
+        <activity
+            android:name=".unifiedcare.therapist.TherapistApplyNowActivity"
+            android:exported="false" />
+        <activity
             android:name=".unifiedcare.parents.SecureSlotActivity"
             android:exported="false" />
         <activity
             android:name=".unifiedcare.parents.ParentsFacilityInformationActivity"
-            android:exported="false"></activity>
+            android:exported="false" />
         <activity
             android:name=".unifiedcare.parents.ParentsFacilityListActivity"
             android:exported="false" />
         <activity
-            android:name=".unifiedcare.therapist.TherapistConfirmationFacilityPart"
+            android:name=".unifiedcare.therapist.TherapistConfirmationFacilityPartActivity"
             android:exported="false" />
         <activity
-            android:name=".unifiedcare.therapist.TherapistPreferencesPage2"
+            android:name=".unifiedcare.therapist.TherapistPreferencesPage2Activity"
             android:exported="false" />
         <activity
-            android:name=".unifiedcare.therapist.UnifiedChangeUsername"
+            android:name=".unifiedcare.therapist.UnifiedChangeUsernameActivity"
             android:exported="false" />
         <activity
-            android:name=".unifiedcare.therapist.TherapistHomePage"
+            android:name=".unifiedcare.therapist.TherapistHomePageActivity"
             android:exported="false" />
         <activity
-            android:name=".unifiedcare.therapist.TherapistConfirmationFacilityPageRegistration"
+            android:name=".unifiedcare.therapist.TherapistConfirmationFacilityPageRegistrationActivity"
             android:exported="false" />
         <activity
-            android:name=".unifiedcare.therapist.TherapistConfirmationFacilityPageEmail"
+            android:name=".unifiedcare.therapist.TherapistConfirmationFacilityPageEmailActivity"
             android:exported="false" />
         <activity
-            android:name=".unifiedcare.therapist.TherapistPreferencesPage"
+            android:name=".unifiedcare.therapist.TherapistPreferencesPageActivity"
             android:exported="false" />
         <activity
-            android:name=".unifiedcare.therapist.TherapistConfirmationFacilityPage"
+            android:name=".unifiedcare.therapist.TherapistConfirmationFacilityPageActivity"
             android:exported="false" />
         <activity
-            android:name=".unifiedcare.therapist.TherapistNewUserSignUpPage2"
+            android:name=".unifiedcare.therapist.TherapistNewUserSignUpPage2Activity"
             android:exported="false" />
         <activity
-            android:name=".unifiedcare.therapist.TherapistSignUpPage"
+            android:name=".unifiedcare.therapist.TherapistSignUpPageActivity"
             android:exported="false" />
         <activity
             android:name=".unifiedcare.parents.ParentsSignUpPage_ChildDetailsActivity"
