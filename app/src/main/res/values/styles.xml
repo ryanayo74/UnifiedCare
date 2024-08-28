@@ -1,0 +1,7 @@
+<resources>
+    <!-- Define a circular shape style -->
+    <style name="CircleImageViewStyle">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item> <!-- This makes the shape circular -->
+    </style>
+</resources>
