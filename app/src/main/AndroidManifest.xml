@@ -34,10 +34,25 @@
             android:name=".unifiedcare.parents.SecureSlotActivity"
             android:exported="false" />
         <activity
+            android:name=".unifiedcare.parents.ExistingParentUserDashBoardActivity"
+            android:exported="false" />
+        <activity
+            android:name=".unifiedcare.parents.ParentsChildsProgressPageActivity"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".unifiedcare.parents.ParentsFacilityInformationActivity"
             android:exported="false" />
         <activity
             android:name=".unifiedcare.parents.ParentsFacilityListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".unifiedcare.parents.TherapistInformationPageActivity"
             android:exported="false" />
         <activity
             android:name=".unifiedcare.therapist.TherapistConfirmationFacilityPartActivity"
@@ -76,6 +91,12 @@
             android:name=".unifiedcare.parents.ParentsSignUpPageActivity"
             android:exported="false" />
         <activity
+            android:name=".unifiedcare.parents.WeekViewActivity"
+            android:exported="false" />
+        <activity
+            android:name=".unifiedcare.parents.TherapistListPageActivity"
+            android:exported="false" />
+        <activity
             android:name=".unifiedcare.UserTypePageActivity"
             android:exported="false" />
         <activity
@@ -87,12 +108,7 @@
         <activity
             android:name=".parent.WelcomePageActivity"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
-
 </manifest>
