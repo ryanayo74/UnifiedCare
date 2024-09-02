@@ -13,6 +13,25 @@
         android:theme="@style/Theme.UnifiedCare"
         tools:targetApi="34">
         <activity
+            android:name=".unifiedcare.parents.ParentsMessagePage"
+            android:exported="false" />
+
+        <activity
+            android:name=".unifiedcare.parents.ParentsChildsProgressPageSkillsAssessmentActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".unifiedcare.parents.ParentsChildsProgressPageProgressSummaryActivity"
+            android:exported="true">
+
+        </activity>
+        <activity
+            android:name=".unifiedcare.parents.ParentsChildsProgressPageRecommendationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".unifiedcare.parents.ParentsChildsProgressPageTherapistNotesActivity"
+            android:exported="false" />
+        <activity
             android:name=".unifiedcare.ProfilePageActivity"
             android:exported="false" />
         <activity
@@ -38,13 +57,7 @@
             android:exported="false" />
         <activity
             android:name=".unifiedcare.parents.ParentsChildsProgressPageActivity"
-            android:exported="true" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:exported="true" />
         <activity
             android:name=".unifiedcare.parents.ParentsFacilityInformationActivity"
             android:exported="false" />
@@ -89,7 +102,14 @@
             android:exported="false" />
         <activity
             android:name=".unifiedcare.parents.ParentsSignUpPageActivity"
-            android:exported="false" />
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
         <activity
             android:name=".unifiedcare.parents.WeekViewActivity"
             android:exported="false" />
@@ -107,8 +127,7 @@
             android:exported="false" />
         <activity
             android:name=".parent.WelcomePageActivity"
-            android:exported="true">
-
-        </activity>
+            android:exported="true" />
     </application>
+
 </manifest>
