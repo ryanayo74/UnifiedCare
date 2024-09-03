@@ -9,6 +9,10 @@ WITH SPECIAL NEEDS"</string>
     <string name="unifiedcare"><font color="#FFFFFF">Unified</font>Care</string>
     <string name="already_a_member_log_in">Already a member? <font color="#FFFFFF">Log In</font></string>
     <string name="unified_care"><font color="#f5a688">Unified</font>Care</string>
+    <string name="arrow"><![CDATA[<]]></string>
+    <string name="back"><![CDATA[>]]></string>
+    <string name="terms_and_conditions"><![CDATA[Terms & Conditions]]></string>
+    <string name="share_this_app">Share This App</string>
     <string-array name="therapy_types">
         <item>Occupational therapy</item>
         <item>Speech therapy</item>

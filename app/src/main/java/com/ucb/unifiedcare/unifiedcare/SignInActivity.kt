@@ -26,7 +26,7 @@ import com.ucb.unifiedcare.unifiedcare.therapist.TherapistHomePageActivity
 class SignInActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var sharedPreferences: SharedPreferences
-    private val db = Firebase.firestore // Firestore DB wala pako nag butang pero naka connect nani sa firestore ang project
+    private val db = Firebase.firestore
     private var rememberMeChecked = false
 
 

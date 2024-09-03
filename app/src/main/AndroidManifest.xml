@@ -13,6 +13,9 @@
         android:theme="@style/Theme.UnifiedCare"
         tools:targetApi="34">
         <activity
+            android:name=".unifiedcare.therapist.TherapistChildsProgressPage1"
+            android:exported="false" />
+        <activity
             android:name=".unifiedcare.ProfilePageActivity"
             android:exported="false" />
         <activity
