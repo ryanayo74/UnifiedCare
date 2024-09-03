@@ -79,7 +79,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="1.0" />
 
-        <ImageView
+        <ToggleButton
             android:id="@+id/heartbtn"
             android:layout_width="27dp"
             android:layout_height="27dp"
