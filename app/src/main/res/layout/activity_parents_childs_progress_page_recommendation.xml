@@ -30,16 +30,16 @@
             android:textAlignment="center"
             android:textColor="@color/black"/>
 
-<!--        <Button-->
-<!--            android:layout_width="0dp"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_weight="1"-->
-<!--            android:text="@string/forward"-->
-<!--            android:textColor="@color/blue"-->
-<!--            android:background="@null"-->
-<!--            android:textStyle="bold"-->
-<!--            android:onClick="nextMonthAction"-->
-<!--            android:textSize="20sp"/>-->
+        <!--        <Button-->
+        <!--            android:layout_width="0dp"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_weight="1"-->
+        <!--            android:text="@string/forward"-->
+        <!--            android:textColor="@color/blue"-->
+        <!--            android:background="@null"-->
+        <!--            android:textStyle="bold"-->
+        <!--            android:onClick="nextMonthAction"-->
+        <!--            android:textSize="20sp"/>-->
         <ImageView
             android:layout_width="102dp"
             android:layout_height="40dp"
@@ -141,7 +141,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/session_overview"
+        android:text="@string/reco"
         android:textColor="@color/black"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -165,5 +165,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0"
-        tools:listitem="@layout/session_overview_list" />
+        tools:listitem="@layout/therapist_reco_list" />
 </androidx.constraintlayout.widget.ConstraintLayout>
