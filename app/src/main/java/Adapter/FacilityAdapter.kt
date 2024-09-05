@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.RatingBar
 import android.widget.TextView
 import android.widget.ToggleButton
 import androidx.recyclerview.widget.RecyclerView
@@ -32,7 +33,7 @@ class FacilityAdapter(private val facilities: List<Facility>) :
         private val facilityName: TextView = itemView.findViewById(R.id.facilityname)
         private val facilityDescription: TextView = itemView.findViewById(R.id.facilityDescription)
         private val facilityImage: ImageView = itemView.findViewById(R.id.listImage)
-        private val facilityRating: TextView = itemView.findViewById(R.id.ratingBar)
+        private val facilityRating: RatingBar = itemView.findViewById(R.id.ratingBar)
         private val favoriteButton: ToggleButton = itemView.findViewById(R.id.heartbtn)
 
         fun bind(facility: Facility) {
@@ -40,7 +41,7 @@ class FacilityAdapter(private val facilities: List<Facility>) :
             facilityName.text = facility.name
             facilityDescription.text = facility.description
             facilityImage.setImageResource(facility.imageResId)
-            facilityRating.text = facility.rating.toString()
+            facilityRating.rating = facility.rating
 
             favoriteButton.isChecked = facility.isFavorite
             favoriteButton.setOnCheckedChangeListener { _, isChecked ->

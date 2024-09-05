@@ -29,6 +29,21 @@ WITH SPECIAL NEEDS"</string>
         <item>2–5 years old</item>
         <item>6–12 years old</item>
     </string-array>
+    <string name="overview_detail">Sensory bins with various textures (e.g., sand, rice, beans) ro a sensory walk with
+    different textured mats</string>
+    <string name="session_overview">Session Overview</string>
+    <string name="therapist_notes">Therapist\'s Notes</string>
+    <string name="observation">Observations</string>
+    <string name="plans_fornextses">Plans for next session</string>
+    <string name="reco">Therapist\'s Recommendation</string>
+    <string name="progress_summary">Progress Summary</string>
+    <string name="performance">Child\'s Performance</string>
+    <string name="goals">Target Goals</string>
+    <string name="skills_ass">Skills Assessment</string>
+    <string name="current_level">Current Level</string>
+    <string name="goal">Goal</string>
+    <string name="messages_label">Messages</string>
+    <string name="search_hint">Search here...</string>
 
 
 </resources>

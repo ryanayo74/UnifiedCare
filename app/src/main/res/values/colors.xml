@@ -8,4 +8,7 @@
     <color name="blue">	#0047AB</color>
     <color name="yellow">#FFEA00</color>
     <color name="dark_grey">#A9A9A9</color>
+    <color name="red">#EE4B2B</color>
+    <color name="green">#7CFC00</color>
+    <color name="light_pink">#ffd0d6</color>
 </resources>
