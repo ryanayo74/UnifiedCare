@@ -30,16 +30,16 @@
             android:textAlignment="center"
             android:textColor="@color/black"/>
 
-<!--        <Button-->
-<!--            android:layout_width="0dp"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_weight="1"-->
-<!--            android:text="@string/forward"-->
-<!--            android:textColor="@color/blue"-->
-<!--            android:background="@null"-->
-<!--            android:textStyle="bold"-->
-<!--            android:onClick="nextMonthAction"-->
-<!--            android:textSize="20sp"/>-->
+        <!--        <Button-->
+        <!--            android:layout_width="0dp"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_weight="1"-->
+        <!--            android:text="@string/forward"-->
+        <!--            android:textColor="@color/blue"-->
+        <!--            android:background="@null"-->
+        <!--            android:textStyle="bold"-->
+        <!--            android:onClick="nextMonthAction"-->
+        <!--            android:textSize="20sp"/>-->
         <ImageView
             android:layout_width="102dp"
             android:layout_height="40dp"
@@ -141,7 +141,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/session_overview"
+        android:text="@string/therapist_notes"
         android:textColor="@color/black"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -151,19 +151,61 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.201" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/observation"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.054"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.252" />
+
     <ListView
-        android:id="@+id/listview"
-        android:layout_width="369dp"
-        android:layout_height="680dp"
+        android:id="@+id/observation_listview"
+        android:layout_width="354dp"
+        android:layout_height="279dp"
         android:divider="@android:color/transparent"
         android:dividerHeight="10.0sp"
         android:padding="20dp"
         android:scrollbars="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.719"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
-        tools:listitem="@layout/session_overview_list" />
+        app:layout_constraintVertical_bias="0.418"
+        tools:listitem="@layout/therapist_notes_list" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/plans_fornextses"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.074"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.652" />
+
+    <ListView
+        android:id="@+id/plans_list"
+        android:layout_width="354dp"
+        android:layout_height="279dp"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="10.0sp"
+        android:padding="20dp"
+        android:scrollbars="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.719"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.973"
+        tools:listitem="@layout/therapist_notes_list" />
 </androidx.constraintlayout.widget.ConstraintLayout>
