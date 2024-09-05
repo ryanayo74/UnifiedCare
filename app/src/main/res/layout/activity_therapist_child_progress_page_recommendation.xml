@@ -5,7 +5,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".unifiedcare.therapist.TherapistChildsProgressPage1">
+        android:id="@+id/main"
+        tools:context=".unifiedcare.therapist.TherapistChildsProgressPageRecommendation">
 
         <ImageButton
             android:id="@+id/back_button"
@@ -19,6 +20,7 @@
             app:layout_constraintHorizontal_bias="0.216"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/month"
             tools:ignore="MissingConstraints" />
 
         <TextView
@@ -34,7 +36,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="16dp" />
 
-        <!-- Calendar Layout (Days and Dates ) -->
+        <!-- Calendar Layout (Days and Dates) -->
         <LinearLayout
             android:id="@+id/calendarContainer"
             android:layout_width="0dp"
@@ -54,9 +56,7 @@
                 android:text="@string/arrow"
                 android:textColor="@color/black"
                 android:textSize="25sp"
-                android:textStyle="bold"
-                tools:layout_editor_absoluteX="25dp"
-                tools:layout_editor_absoluteY="16dp" />
+                android:textStyle="bold" />
 
             <!-- Days and Dates Container -->
             <LinearLayout
@@ -100,37 +100,42 @@
 
         </LinearLayout>
 
-        <!-- Time and Sessions Overview -->
+        <!-- Children TextView -->
+        <TextView
+            android:id="@+id/childrenText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Children"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/calendarContainer"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="16dp" />
+
+        <!-- Observation Overview Layout -->
         <LinearLayout
-            android:id="@+id/sessions_overview_layout"
+            android:id="@+id/observation_overview_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical"
             android:padding="8dp"
-            app:layout_constraintTop_toBottomOf="@id/calendarContainer"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/childrenText"
             android:layout_marginTop="16dp">
 
-            <!-- TextView for the time display  -->
-            <TextView
-                android:id="@+id/timeText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Today's time \n"
-                android:textSize="14sp"
-                android:paddingEnd="16dp" />
-
-            <!-- TextView for the title "Sessions Overview" -->
+            <!-- TextView for the title "Observation Overview" -->
             <TextView
                 android:id="@+id/observationsText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Sessions Overview"
+                android:text="Recommendation"
                 android:textColor="@color/black"
                 android:textStyle="bold"
-                android:layout_marginStart="50dp"
+                android:layout_marginStart="10dp"
                 android:textSize="16sp" />
 
         </LinearLayout>
@@ -144,15 +149,14 @@
             android:dividerHeight="10.0sp"
             android:padding="0dp"
             android:scrollbars="vertical"
-            android:layout_marginStart="50dp"
-            android:layout_marginEnd="20dp"
-            app:layout_constraintTop_toBottomOf="@id/sessions_overview_layout"
+            app:layout_constraintTop_toBottomOf="@id/observation_overview_layout"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="10dp"
-            tools:listitem="@layout/session_overview_therapist_list"
-            />
+            android:layout_marginEnd="20dp"
+            android:layout_marginStart="50dp"
+            tools:listitem="@layout/recommendation_list" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
