@@ -44,6 +44,9 @@ WITH SPECIAL NEEDS"</string>
     <string name="goal">Goal</string>
     <string name="messages_label">Messages</string>
     <string name="search_hint">Search here...</string>
+    <string name="session">Add Session</string>
+    <string name="month">Month</string>
+    <string name="add_note">Add Note</string>
 
 
 </resources>

@@ -12,7 +12,7 @@ import java.util.Locale
 import java.util.TimeZone
 
 
-class TherapistChildsProgressPageSession : AppCompatActivity() {
+class TherapistChildsProgressPage1 : AppCompatActivity() {
 
     private lateinit var binding: ActivityTherapistChildsProgressPage1Binding
     private var currentWeekOffset = 0
