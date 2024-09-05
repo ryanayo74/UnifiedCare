@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.RatingBar
 import android.widget.TextView
 import android.widget.ToggleButton
 import androidx.recyclerview.widget.RecyclerView
@@ -19,6 +20,7 @@ class FacilityAdapter(private val facilities: List<Facility>) :
             .inflate(R.layout.facility_item, parent, false)
         return FacilityViewHolder(view)
     }
+
     override fun onBindViewHolder(holder: FacilityViewHolder, position: Int) {
         val facility = facilities[position]
         holder.bind(facility)
@@ -32,15 +34,15 @@ class FacilityAdapter(private val facilities: List<Facility>) :
         private val facilityName: TextView = itemView.findViewById(R.id.facilityname)
         private val facilityDescription: TextView = itemView.findViewById(R.id.facilityDescription)
         private val facilityImage: ImageView = itemView.findViewById(R.id.listImage)
-        private val facilityRating: TextView = itemView.findViewById(R.id.ratingBar)
+        private val facilityRating: RatingBar = itemView.findViewById(R.id.ratingBar)
         private val favoriteButton: ToggleButton = itemView.findViewById(R.id.heartbtn)
 
         fun bind(facility: Facility) {
-             Log.d("FacilityAdapter", "Binding facility: ${facility.name}")
+            Log.d("FacilityAdapter", "Binding facility: ${facility.name}")
             facilityName.text = facility.name
             facilityDescription.text = facility.description
             facilityImage.setImageResource(facility.imageResId)
-            facilityRating.text = facility.rating.toString()
+            facilityRating.rating = facility.rating
 
             favoriteButton.isChecked = facility.isFavorite
             favoriteButton.setOnCheckedChangeListener { _, isChecked ->
@@ -48,4 +50,5 @@ class FacilityAdapter(private val facilities: List<Facility>) :
             }
         }
     }
+
 }
