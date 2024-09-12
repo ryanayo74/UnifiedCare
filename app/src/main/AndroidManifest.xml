@@ -13,12 +13,29 @@
         android:theme="@style/Theme.UnifiedCare"
         tools:targetApi="34">
         <activity
+            android:name=".unifiedcare.therapist.CommunitySupportPageActivity"
+            android:exported="false" />
+        <activity
+            android:name=".unifiedcare.therapist.TherapistAppointmentActivity"
+            android:exported="false" />
+        <activity
+            android:name=".unifiedcare.therapist.TherapistAvailableScheduleActivity"
+            android:exported="false" />
+        <activity
+            android:name=".unifiedcare.therapist.TherapistApproveAppointmentActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".unifiedcare.therapist.TherapistSkillAssessment"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".unifiedcare.therapist.TherapistProgressSummary"
-            android:exported="false"/>
-
+            android:exported="false" />
         <activity
             android:name=".unifiedcare.therapist.TherapistChildProgressPageRecommendation"
             android:exported="false" />
@@ -114,13 +131,7 @@
             android:exported="false" />
         <activity
             android:name=".parent.WelcomePageActivity"
-            android:exported="true" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:exported="true" />
     </application>
 
 </manifest>
