@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mainLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".unifiedcare.therapist.TherapistAvailableScheduleActivity">
+
+    <!-- Back Button -->
+    <ImageButton
+        android:id="@+id/back_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="?android:attr/selectableItemBackgroundBorderless"
+        android:contentDescription="Back"
+        android:src="@drawable/arrowleft"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Month Text -->
+    <TextView
+        android:id="@+id/month"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/month"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@id/back_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/back_button"
+        android:layout_marginTop="16dp" />
+
+    <!-- Calendar Layout (Days and Dates) -->
+    <LinearLayout
+        android:id="@+id/calendarContainer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/month"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp">
+
+        <!-- Left Arrow -->
+        <TextView
+            android:id="@+id/leftArrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/arrow"
+            android:textColor="@color/black"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+        <!-- Days and Dates Container -->
+        <LinearLayout
+            android:id="@+id/daysDatesContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_margin="8dp">
+
+            <!-- Days of the week -->
+            <LinearLayout
+                android:id="@+id/daysOfWeekContainer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center" />
+
+            <!-- Dates -->
+            <LinearLayout
+                android:id="@+id/datesContainer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center" />
+
+        </LinearLayout>
+
+        <!-- Right Arrow -->
+        <TextView
+            android:id="@+id/rightArrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/back"
+            android:textColor="@color/black"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            android:padding="8dp" />
+    </LinearLayout>
+
+    <!-- Therapist information -->
+    <LinearLayout
+        android:id="@+id/therapist_info_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/calendarContainer"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="16dp">
+
+        <!-- Profile Image -->
+        <ImageView
+            android:id="@+id/therapist_image"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/profile"
+            android:scaleType="centerCrop"
+            android:layout_marginEnd="8dp"
+            android:contentDescription="Therapist Image" />
+
+        <!-- Therapist Name and Rating -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/therapist_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="James Jones"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/therapist_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="OT - Sample 1" />
+
+            <TextView
+                android:id="@+id/therapist_rating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="4.9 (97 Reviews)" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Time Slots Grid -->
+    <GridLayout
+        android:id="@+id/time_slots"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@id/therapist_info_layout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:columnCount="3"
+        android:orientation="horizontal">
+
+        <!-- Add Time Slot Buttons -->
+        <Button
+            android:id="@+id/time_8am"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="8:00 AM" />
+        <Button
+            android:id="@+id/time_10am"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="10:00 AM"
+            android:backgroundTint="@android:color/holo_orange_light" />
+        <Button
+            android:id="@+id/time_12pm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="12:00 PM"
+            android:backgroundTint="@android:color/holo_orange_light" />
+
+        <Button
+            android:id="@+id/time_1pm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1:00 PM" />
+        <Button
+            android:id="@+id/time_2pm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2:00 PM"
+            android:backgroundTint="@android:color/holo_orange_light" />
+        <Button
+            android:id="@+id/time_3pm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="3:00 PM" />
+
+        <Button
+            android:id="@+id/time_4pm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="4:00 PM" />
+        <Button
+            android:id="@+id/time_5pm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="5:00 PM"
+            android:backgroundTint="@android:color/holo_orange_light" />
+        <Button
+            android:id="@+id/time_6pm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="6:00 PM" />
+    </GridLayout>
+
+    <!-- Save and Cancel Buttons -->
+    <LinearLayout
+        android:id="@+id/button_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="24dp"
+        app:layout_constraintTop_toBottomOf="@id/time_slots"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/btn_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/background_color"
+            android:text="@string/save" />
+
+        <Button
+            android:id="@+id/btn_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/background_color"
+            android:text="@string/cancel"
+            android:layout_marginStart="16dp" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

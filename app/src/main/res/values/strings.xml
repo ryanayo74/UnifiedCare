@@ -47,6 +47,13 @@ WITH SPECIAL NEEDS"</string>
     <string name="session">Add Session</string>
     <string name="month">Month</string>
     <string name="add_note">Add Note</string>
+    <string name="parent">Parent 1</string>
+    <string name="accept">ACCEPT</string>
+    <string name="cancel">CANCEL</string>
+    <string name="view">VIEW</string>
+    <string name="edit">Edit</string>
+    <string name="approve_appointments">Approve Appointments</string>
+    <string name="save">SAVE</string>
 
 
 </resources>
