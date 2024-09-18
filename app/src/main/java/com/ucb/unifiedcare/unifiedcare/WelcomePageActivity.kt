@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.widget.Button
 import com.ucb.unifiedcare.R
 import com.ucb.unifiedcare.unifiedcare.SignInActivity
+import com.ucb.unifiedcare.unifiedcare.UserTypePageActivity
 
 class WelcomePageActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
