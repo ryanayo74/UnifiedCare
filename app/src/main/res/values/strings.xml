@@ -54,6 +54,8 @@ WITH SPECIAL NEEDS"</string>
     <string name="edit">Edit</string>
     <string name="approve_appointments">Approve Appointments</string>
     <string name="save">SAVE</string>
+    <string name="old_password">Old Password</string>
+    <string name="new_password">New Password</string>
 
 
 </resources>
