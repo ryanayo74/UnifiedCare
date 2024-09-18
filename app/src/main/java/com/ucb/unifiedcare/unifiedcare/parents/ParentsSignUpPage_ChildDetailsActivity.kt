@@ -71,9 +71,7 @@ class ParentsSignUpPage_ChildDetailsActivity : AppCompatActivity() {
                 Toast.makeText(this, "Please fill out all fields correctly.", Toast.LENGTH_SHORT).show()
             }
         }
-
     }
-
     private fun signUpWithEmail(
         email: String, password: String, firstName: String, lastName: String,
         specialNeeds: String, therapyType: String, ageRange: String, address: String,
@@ -107,9 +105,6 @@ class ParentsSignUpPage_ChildDetailsActivity : AppCompatActivity() {
                 }
             }
     }
-
-
-
     private fun saveToFirestore(
         firstName: String, lastName: String, specialNeeds: String, therapyType: String,
         ageRange: String, address: String,
@@ -140,7 +135,8 @@ class ParentsSignUpPage_ChildDetailsActivity : AppCompatActivity() {
         )
 
         // Concatenate parentFirstName and parentLastName to create a unique document ID
-        val documentId = "${parentFirstName}_${parentLastName}"
+        val documentId = "$parentEmail"
+
 
         // Save details to Firestore under the "Users" collection -> "parents" sub-collection
         if (parentFirstName != null && parentLastName != null) {
@@ -158,15 +154,17 @@ class ParentsSignUpPage_ChildDetailsActivity : AppCompatActivity() {
                     finish() // Close the current activity so the user can't navigate back to it
                 }
                 .addOnFailureListener { e ->
-                    Toast.makeText(this, "Error saving data: ${e.message}", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Error saving data: ${e.message}", Toast.LENGTH_SHORT)
+                        .show()
                 }
         } else {
-            Toast.makeText(this, "Parent first and last name are required to generate document ID.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                this,
+                "Parent first and last name are required to generate document ID.",
+                Toast.LENGTH_SHORT
+            ).show()
         }
     }
-
-
-
     private fun validateInputs(
         firstName: String, lastName: String, specialNeeds: String, therapyType: String,
         ageRange: String, address: String
@@ -175,3 +173,4 @@ class ParentsSignUpPage_ChildDetailsActivity : AppCompatActivity() {
                 therapyType.isNotEmpty() && ageRange.isNotEmpty() && address.isNotEmpty()
     }
 }
+
