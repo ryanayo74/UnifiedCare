@@ -74,7 +74,8 @@
             android:exported="false" />
         <activity
             android:name=".unifiedcare.parents.ParentsFacilityListActivity"
-            android:exported="false" />
+            android:exported="true">
+        </activity>
         <activity
             android:name=".unifiedcare.parents.TherapistInformationPageActivity"
             android:exported="false" />
@@ -113,7 +114,8 @@
             android:exported="false" />
         <activity
             android:name=".unifiedcare.parents.ParentsSignUpPageActivity"
-            android:exported="false" />
+            android:exported="true" >
+        </activity>
         <activity
             android:name=".unifiedcare.parents.WeekViewActivity"
             android:exported="false" />
@@ -133,5 +135,4 @@
             android:name=".parent.WelcomePageActivity"
             android:exported="true" />
     </application>
-
 </manifest>

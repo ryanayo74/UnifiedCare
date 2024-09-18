@@ -8,5 +8,7 @@ class ParentsFacilityListActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_parents_facility_list)
+
+
     }
 }

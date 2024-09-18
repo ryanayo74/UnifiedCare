@@ -8,6 +8,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
+import android.util.Log
 import android.widget.Button
 import android.widget.CheckBox
 import android.widget.EditText
@@ -56,7 +57,6 @@ class SignInActivity : AppCompatActivity() {
                 rememberMeChecked = true
             }
         }
-
         forgotPassword.setOnClickListener {
             val intent = Intent(this, ForgotPasswordPageActivity::class.java)
             startActivity(intent)
@@ -92,7 +92,6 @@ class SignInActivity : AppCompatActivity() {
                 editTextPassword.setText("")
             }
         }
-
         buttonSignIn.setOnClickListener {
             val inputUserName: String = editTextUserName.text.toString().trim()
             val inputPassword: String = editTextPassword.text.toString().trim()
@@ -125,24 +124,44 @@ class SignInActivity : AppCompatActivity() {
                             }
 
                             // Fetch the user's document from Firestore
-                            val userId = user.uid
+                            val user = auth.currentUser
+                            if (user != null) {
+                                val userId = user.email
+                                if (userId != null) {
+                                    db.collection("Users")
+                                        .document("parents").collection("newUserParent")
+                                        .document(userId).get()
+                                        .addOnSuccessListener { document ->
+                                            if (document.exists()) {
+                                                Log.d("Firestore", "Document exists")
+                                                // Redirect to parent homepage
+                                                val intent = Intent(
+                                                    this,
+                                                    ParentsFacilityListActivity::class.java
+                                                )
+                                                startActivity(intent)
+                                            }
+                                            else {
+                                                Log.d("Firestore", "Document not exists")
+                                                // If not in parents, assume therapist and redirect accordingly
+                                                val intent =
+                                                    Intent(this, TherapistHomePageActivity::class.java)
+                                                startActivity(intent)
+                                            }
+                                        }
+                                        .addOnFailureListener {
+                                            Toast.makeText(
+                                                this,
+                                                "Failed to retrieve user data.",
+                                                Toast.LENGTH_SHORT
+                                            ).show()
+                                        }
+                                }
+                            }
+
 
                             // Check if the user document exists in the "parents" sub-collection
-                            db.collection("Users").document("parents").collection("newUserParent").document(userId).get()
-                                .addOnSuccessListener { document ->
-                                    if (document.exists()) {
-                                        // Redirect to parent homepage
-                                        val intent = Intent(this, ParentsFacilityListActivity::class.java)
-                                        startActivity(intent)
-                                    } else {
-                                        // If not in parents, assume therapist and redirect accordingly
-                                        val intent = Intent(this, TherapistHomePageActivity::class.java)
-                                        startActivity(intent)
-                                    }
-                                }
-                                .addOnFailureListener {
-                                    Toast.makeText(this, "Failed to retrieve user data.", Toast.LENGTH_SHORT).show()
-                                }
+
                         } else {
                             auth.signOut()
                             Toast.makeText(this, "Please verify your email address.", Toast.LENGTH_SHORT).show()
