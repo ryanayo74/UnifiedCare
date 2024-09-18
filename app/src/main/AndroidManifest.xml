@@ -13,6 +13,18 @@
         android:theme="@style/Theme.UnifiedCare"
         tools:targetApi="34">
         <activity
+            android:name=".unifiedcare.UnifiedCareAboutAppActivity"
+            android:exported="false" />
+        <activity
+            android:name=".unifiedcare.UnifiedCareTermsandConditionActivity"
+            android:exported="false" />
+        <activity
+            android:name=".unifiedcare.UnifiedCarePrivacyPolicyActivity"
+            android:exported="false" />
+        <activity
+            android:name=".unifiedcare.ProfilePageActivity"
+            android:exported="false" />
+        <activity
             android:name=".unifiedcare.therapist.CommunitySupportPageActivity"
             android:exported="false" />
         <activity
@@ -23,13 +35,7 @@
             android:exported="false" />
         <activity
             android:name=".unifiedcare.therapist.TherapistApproveAppointmentActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:exported="false" />
         <activity
             android:name=".unifiedcare.therapist.TherapistSkillAssessment"
             android:exported="false" />
@@ -47,9 +53,6 @@
             android:exported="false" />
         <activity
             android:name=".unifiedcare.therapist.TherapistChildsProgressPage1"
-            android:exported="false" />
-        <activity
-            android:name=".unifiedcare.ProfilePageActivity"
             android:exported="false" />
         <activity
             android:name=".unifiedcare.therapist.TherapistWaitApprovalActivity"
@@ -133,6 +136,12 @@
             android:exported="false" />
         <activity
             android:name=".parent.WelcomePageActivity"
-            android:exported="true" />
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 </manifest>

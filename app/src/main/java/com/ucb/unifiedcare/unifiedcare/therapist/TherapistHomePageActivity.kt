@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ucb.unifiedcare.R
 import com.ucb.unifiedcare.unifiedcare.ProfilePageActivity
-import com.ucb.unifiedcare.unifiedcare.SignInActivity
 
 
 class TherapistHomePageActivity : AppCompatActivity() {
