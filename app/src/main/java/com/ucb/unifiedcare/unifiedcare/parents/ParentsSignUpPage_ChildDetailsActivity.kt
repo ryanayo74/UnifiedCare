@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.ucb.unifiedcare.R
 import com.ucb.unifiedcare.unifiedcare.SignInActivity
@@ -131,7 +132,8 @@ class ParentsSignUpPage_ChildDetailsActivity : AppCompatActivity() {
 
         val userDetails = hashMapOf(
             "parentDetails" to parentDetails,
-            "childDetails" to childDetails
+            "childDetails" to childDetails,
+            "createdAt" to FieldValue.serverTimestamp()
         )
 
         // Concatenate parentFirstName and parentLastName to create a unique document ID

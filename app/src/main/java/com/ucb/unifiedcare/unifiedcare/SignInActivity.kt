@@ -20,8 +20,10 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.ucb.unifiedcare.unifiedcare.parents.ExistingParentUserDashBoardActivity
 import com.ucb.unifiedcare.unifiedcare.parents.ForgotPasswordPageActivity
 import com.ucb.unifiedcare.unifiedcare.parents.ParentsFacilityListActivity
+import com.ucb.unifiedcare.unifiedcare.therapist.TherapistApplyHomePageActivity
 import com.ucb.unifiedcare.unifiedcare.therapist.TherapistHomePageActivity
 
 class SignInActivity : AppCompatActivity() {
@@ -29,7 +31,6 @@ class SignInActivity : AppCompatActivity() {
     private lateinit var sharedPreferences: SharedPreferences
     private val db = Firebase.firestore
     private var rememberMeChecked = false
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,41 +58,28 @@ class SignInActivity : AppCompatActivity() {
                 rememberMeChecked = true
             }
         }
-        forgotPassword.setOnClickListener {
-            val intent = Intent(this, ForgotPasswordPageActivity::class.java)
-            startActivity(intent)
-        }
 
-        register.setOnClickListener {
-            val intent = Intent(this, UserTypePageActivity::class.java)
-            startActivity(intent)
-        }
-
-        // Show or hide password
+        // Password visibility toggle
         checkBoxShowPassword.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
-                editTextPassword.transformationMethod =
-                    HideReturnsTransformationMethod.getInstance()
+                editTextPassword.transformationMethod = HideReturnsTransformationMethod.getInstance()
             } else {
                 editTextPassword.transformationMethod = PasswordTransformationMethod.getInstance()
             }
         }
 
-        radioButtonRememberMe.setOnClickListener {
-            rememberMeChecked = !rememberMeChecked
-            radioButtonRememberMe.isChecked = rememberMeChecked
-            if (rememberMeChecked) {
-                val savedUserName = sharedPreferences.getString("username", "")
-                val savedPassword = sharedPreferences.getString("password", "")
-                if (!savedUserName.isNullOrEmpty() && !savedPassword.isNullOrEmpty()) {
-                    editTextUserName.setText(savedUserName)
-                    editTextPassword.setText(savedPassword)
-                }
-            } else {
-                editTextUserName.setText("")
-                editTextPassword.setText("")
-            }
+        // Forgot password click listener
+        forgotPassword.setOnClickListener {
+            val intent = Intent(this, ForgotPasswordPageActivity::class.java)
+            startActivity(intent)
         }
+
+        // Register button listener
+        register.setOnClickListener {
+            val intent = Intent(this, UserTypePageActivity::class.java)
+            startActivity(intent)
+        }
+
         buttonSignIn.setOnClickListener {
             val inputUserName: String = editTextUserName.text.toString().trim()
             val inputPassword: String = editTextPassword.text.toString().trim()
@@ -122,46 +110,8 @@ class SignInActivity : AppCompatActivity() {
                                     apply()
                                 }
                             }
-
-                            // Fetch the user's document from Firestore
-                            val user = auth.currentUser
-                            if (user != null) {
-                                val userId = user.email
-                                if (userId != null) {
-                                    db.collection("Users")
-                                        .document("parents").collection("newUserParent")
-                                        .document(userId).get()
-                                        .addOnSuccessListener { document ->
-                                            if (document.exists()) {
-                                                Log.d("Firestore", "Document exists")
-                                                // Redirect to parent homepage
-                                                val intent = Intent(
-                                                    this,
-                                                    ParentsFacilityListActivity::class.java
-                                                )
-                                                startActivity(intent)
-                                            }
-                                            else {
-                                                Log.d("Firestore", "Document not exists")
-                                                // If not in parents, assume therapist and redirect accordingly
-                                                val intent =
-                                                    Intent(this, TherapistHomePageActivity::class.java)
-                                                startActivity(intent)
-                                            }
-                                        }
-                                        .addOnFailureListener {
-                                            Toast.makeText(
-                                                this,
-                                                "Failed to retrieve user data.",
-                                                Toast.LENGTH_SHORT
-                                            ).show()
-                                        }
-                                }
-                            }
-
-
-                            // Check if the user document exists in the "parents" sub-collection
-
+                            // Check the user type and redirect
+                            checkUserTypeAndRedirect(user.email)
                         } else {
                             auth.signOut()
                             Toast.makeText(this, "Please verify your email address.", Toast.LENGTH_SHORT).show()
@@ -171,6 +121,71 @@ class SignInActivity : AppCompatActivity() {
                     }
                 }
         }
+    }
+    private fun checkUserTypeAndRedirect(email: String?) {
+        if (email == null) return
 
+        db.collection("Users").document("parents").collection("newUserParent")
+            .whereEqualTo("parentDetails.email", email) // Use dot notation for nested fields
+            .get()
+            .addOnSuccessListener { documents ->
+                if (!documents.isEmpty) {
+                    // Redirect to new parent homepage
+                    val intent = Intent(this, ParentsFacilityListActivity::class.java)
+                    startActivity(intent)
+                } else {
+                    // Check if the user is an existing parent
+                    db.collection("Users").document("parents").collection("existingUserParent")
+                        .whereEqualTo(
+                            "parentDetails.email",
+                            email
+                        ) // Use dot notation for nested fields
+                        .get()
+                        .addOnSuccessListener { existingDocs ->
+                            if (!existingDocs.isEmpty) {
+                                // Redirect to existing parent homepage
+                                val intent = Intent(this, ExistingParentUserDashBoardActivity::class.java)
+                                startActivity(intent)
+                            } else {
+                                // Check for therapist type
+                                checkTherapistType(email)
+                            }
+                        }
+                }
+            }
+            .addOnFailureListener {
+                Toast.makeText(this, "Failed to retrieve user data.", Toast.LENGTH_SHORT).show()
+            }
+    }
+        private fun checkTherapistType(email: String) {
+        // Check if the user is a new therapist
+        db.collection("Users").document("therapists").collection("newUserTherapist")
+            .whereEqualTo("email", email) // Query the email inside the therapistDetails map
+            .get()
+            .addOnSuccessListener { newTherapistDocs ->
+                if (!newTherapistDocs.isEmpty) {
+                    // Redirect to new therapist homepage
+                    val intent = Intent(this, TherapistHomePageActivity::class.java)
+                    startActivity(intent)
+                } else {
+                    // Check if the user is an existing therapist
+                    db.collection("Users").document("therapists").collection("existingUserTherapist")
+                        .whereEqualTo("email", email) // Query the email inside the therapistDetails map
+                        .get()
+                        .addOnSuccessListener { existingTherapistDocs ->
+                            if (!existingTherapistDocs.isEmpty) {
+                                // Redirect to existing therapist homepage
+                                val intent = Intent(this, TherapistApplyHomePageActivity::class.java)
+                                startActivity(intent)
+                            } else {
+                                Toast.makeText(this, "No user type found", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                }
+            }
+            .addOnFailureListener {
+                Toast.makeText(this, "Failed to retrieve therapist data.", Toast.LENGTH_SHORT).show()
+            }
     }
 }
+

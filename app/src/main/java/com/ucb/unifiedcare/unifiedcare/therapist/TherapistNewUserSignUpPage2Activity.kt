@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.FieldValue
 import com.ucb.unifiedcare.R
 import com.ucb.unifiedcare.unifiedcare.SignInActivity
 
@@ -58,11 +59,12 @@ class TherapistNewUserSignUpPage2Activity : AppCompatActivity() {
             "phoneNumber" to phoneNumber,
             "specializations" to specializations,
             "therapyType" to therapyType,
-            "address" to address
+            "address" to address,
+            "createdAt" to FieldValue.serverTimestamp()
         )
 
         // Concatenate firstName and lastName to create a unique document ID
-        val documentId = "${firstName}_${lastName}"
+        val documentId = "${email}"
 
         // Set up the Save button listener
         findViewById<Button>(R.id.signUpButton).setOnClickListener {

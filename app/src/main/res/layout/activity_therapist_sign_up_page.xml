@@ -349,7 +349,7 @@
             app:layout_constraintHorizontal_bias="0.871"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.845" />
+            app:layout_constraintVertical_bias="0.713" />
 
         <CheckBox
             android:id="@+id/checkBoxShowPassword2"
@@ -362,7 +362,7 @@
             app:layout_constraintHorizontal_bias="0.871"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.713" />
+            app:layout_constraintVertical_bias="0.845" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
