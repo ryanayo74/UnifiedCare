@@ -1,7 +1,6 @@
 package Adapter
 
 import ModelClass.Facility
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +9,7 @@ import android.widget.RatingBar
 import android.widget.TextView
 import android.widget.ToggleButton
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.ucb.unifiedcare.R
 
 class FacilityAdapter(private val facilities: List<Facility>) :
@@ -38,11 +38,15 @@ class FacilityAdapter(private val facilities: List<Facility>) :
         private val favoriteButton: ToggleButton = itemView.findViewById(R.id.heartbtn)
 
         fun bind(facility: Facility) {
-            Log.d("FacilityAdapter", "Binding facility: ${facility.name}")
             facilityName.text = facility.name
             facilityDescription.text = facility.description
-            facilityImage.setImageResource(facility.imageResId)
             facilityRating.rating = facility.rating
+
+            // Use Glide to load the image from a URL
+            Glide.with(itemView.context)
+                .load(facility.imageUrl)
+                .placeholder(R.drawable.placeholder_image) // Optional placeholder
+                .into(facilityImage)
 
             favoriteButton.isChecked = facility.isFavorite
             favoriteButton.setOnCheckedChangeListener { _, isChecked ->
@@ -50,5 +54,4 @@ class FacilityAdapter(private val facilities: List<Facility>) :
             }
         }
     }
-
 }

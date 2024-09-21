@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".unifiedcare.parents.ParentsFacilityListActivity">
+
     <ImageView
         android:id="@+id/profile_icon"
         android:layout_width="99dp"
@@ -63,7 +64,6 @@
         android:layout_height="51dp"
         android:layout_marginBottom="704dp"
         android:background="@drawable/round"
-        android:backgroundTint="@color/pink"
         android:padding="15dp"
         android:text="Therapists"
         android:textColor="@color/black"
@@ -79,7 +79,7 @@
         android:layout_height="53dp"
         android:layout_marginBottom="704dp"
         android:background="@drawable/round"
-        android:backgroundTint="@color/white"
+        android:backgroundTint="@color/pink"
         android:padding="15dp"
         android:text="Facilities"
         android:textColor="@color/black"
@@ -104,15 +104,13 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.22" />
 
-    <ListView
-        android:id="@+id/listview"
+    <!-- Replaced ListView with RecyclerView -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:divider="@android:color/transparent"
-        android:dividerHeight="10.0sp"
         android:padding="20dp"
-        android:scrollbars="vertical"
         app:layout_constraintTop_toBottomOf="@+id/reco_id"
-        tools:layout_editor_absoluteX="0dp"
         tools:listitem="@layout/facility_list_item" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

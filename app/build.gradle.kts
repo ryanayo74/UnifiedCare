@@ -58,7 +58,6 @@ dependencies {
     implementation ("androidx.viewpager2:viewpager2:1.1.0")
     implementation ("de.hdodenhof:circleimageview:3.1.0")
     implementation ("com.jakewharton.threetenabp:threetenabp:1.4.4")
-//  implementation ("com.github.gastricspark:scrolldatepicker:0.0.1")
     implementation ("com.github.PhilJay:MPAndroidChart:v3.1.0")
     implementation ("com.github.bumptech.glide:glide:4.15.1")
     annotationProcessor ("com.github.bumptech.glide:compiler:4.15.1")
