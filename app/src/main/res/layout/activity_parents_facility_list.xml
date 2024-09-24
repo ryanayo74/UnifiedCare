@@ -6,88 +6,98 @@
     android:layout_height="match_parent"
     tools:context=".unifiedcare.parents.ParentsFacilityListActivity">
 
-    <ImageView
-        android:id="@+id/profile_icon"
-        android:layout_width="99dp"
-        android:layout_height="50dp"
-        android:src="@drawable/profile"
+    <RelativeLayout
+        android:id="@+id/top_layout"
+        android:layout_width="414dp"
+        android:layout_height="57dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.012"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.074"
-        app:tint="@color/blue" />
+        app:layout_constraintVertical_bias="0.068">
 
-    <TextView
-        android:id="@+id/name1"
-        android:layout_width="113dp"
-        android:layout_height="49dp"
-        android:layout_marginBottom="776dp"
-        android:text="@string/name1"
-        android:textColor="@color/pink"
-        android:textSize="30sp"
-        android:textStyle="bold"
+        <ImageView
+            android:id="@+id/profile_icon"
+            android:layout_width="99dp"
+            android:layout_height="50dp"
+            android:src="@drawable/profile"
+            app:tint="@color/blue"
+            android:layout_marginStart="15dp"/>
+
+        <TextView
+            android:id="@+id/name1"
+            android:layout_width="105dp"
+            android:layout_height="47dp"
+            android:layout_marginBottom="776dp"
+            android:layout_toEndOf="@+id/profile_icon"
+            android:text="@string/name1"
+            android:textColor="@color/pink"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:layout_marginStart="15dp"/>
+
+        <TextView
+            android:id="@+id/name2"
+            android:layout_width="76dp"
+            android:layout_height="45dp"
+            android:layout_marginBottom="780dp"
+            android:layout_toEndOf="@+id/name1"
+            android:text="@string/name2"
+            android:textColor="@color/black"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/notif"
+            android:layout_width="126dp"
+            android:layout_height="56dp"
+            android:layout_marginStart="-26dp"
+            android:layout_toEndOf="@+id/name2"
+            android:src="@drawable/notification" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="415dp"
+        android:layout_height="59dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.402"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:layout_width="76dp"
-        android:layout_height="45dp"
-        android:layout_marginBottom="780dp"
-        android:text="@string/name2"
-        android:textColor="@color/black"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.644"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <ImageView
-        android:id="@+id/notif"
-        android:layout_width="99dp"
-        android:layout_height="50dp"
-        android:src="@drawable/notification"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.993"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.073" />
+        app:layout_constraintVertical_bias="0.141">
 
-    <Button
-        android:id="@+id/therapistslistbtn"
-        android:layout_width="134dp"
-        android:layout_height="51dp"
-        android:layout_marginBottom="704dp"
-        android:background="@drawable/round"
-        android:padding="15dp"
-        android:text="Therapists"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.256"
-        app:layout_constraintStart_toStartOf="parent" />
+        <Button
+            android:id="@+id/therapistslistbtn"
+            android:layout_width="134dp"
+            android:layout_height="51dp"
+            android:layout_marginBottom="704dp"
+            android:layout_toEndOf="@id/facilitylistbtn"
+            android:background="@drawable/round"
+            android:padding="15dp"
+            android:text="Therapists"
+            android:layout_marginStart="15dp"
+            android:textColor="@color/black"
+            android:textStyle="bold" />
 
-    <Button
-        android:id="@+id/facilitylistbtn"
-        android:layout_width="140dp"
-        android:layout_height="53dp"
-        android:layout_marginBottom="704dp"
-        android:background="@drawable/round"
-        android:backgroundTint="@color/pink"
-        android:padding="15dp"
-        android:text="Facilities"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.797"
-        app:layout_constraintStart_toStartOf="parent" />
+        <Button
+            android:id="@+id/facilitylistbtn"
+            android:layout_width="140dp"
+            android:layout_height="53dp"
+            android:layout_marginBottom="704dp"
+            android:background="@drawable/round"
+            android:backgroundTint="@color/pink"
+            android:padding="15dp"
+            android:text="Facilities"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:layout_marginStart="60dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.797"
+            app:layout_constraintStart_toStartOf="parent" />
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/reco_id"
@@ -108,9 +118,10 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="20dp"
+        android:layout_height="600dp"
+        android:scrollbars="vertical"
         app:layout_constraintTop_toBottomOf="@+id/reco_id"
+        tools:layout_editor_absoluteX="-37dp"
         tools:listitem="@layout/facility_list_item" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -9,6 +9,9 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.ucb.unifiedcare.R
 import Adapter.FacilityAdapter
 import ModelClass.Facility
+import android.content.Intent
+import android.widget.ImageView
+import com.ucb.unifiedcare.unifiedcare.ProfilePageActivity
 
 class ParentsFacilityListActivity : AppCompatActivity() {
     private lateinit var firestore: FirebaseFirestore
@@ -30,6 +33,15 @@ class ParentsFacilityListActivity : AppCompatActivity() {
 
         // Fetch facility data from Firestore
         fetchFacilities()
+
+       // val notif: ImageView = findViewById(R.id.notif)
+        val profile: ImageView = findViewById(R.id.profile_icon)
+        val intent = Intent (this, ProfilePageActivity::class.java)
+     //   val intent_notif = Intent (this, ProfilePageActivity::class.java)
+
+        profile.setOnClickListener{
+            startActivity(intent)
+        }
     }
 
     private fun fetchFacilities() {
