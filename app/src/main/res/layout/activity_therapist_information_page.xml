@@ -55,6 +55,7 @@
         app:layout_constraintVertical_bias="0.31" />
 
     <TextView
+        android:id="@+id/therapist_fullname"
         android:layout_width="244dp"
         android:layout_height="51dp"
         android:layout_marginStart="92dp"

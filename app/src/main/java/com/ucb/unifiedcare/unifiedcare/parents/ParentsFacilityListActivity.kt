@@ -1,16 +1,15 @@
 package com.ucb.unifiedcare.unifiedcare.parents
 
-import android.os.Bundle
-import android.util.Log
-import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.google.firebase.firestore.FirebaseFirestore
-import com.ucb.unifiedcare.R
 import Adapter.FacilityAdapter
 import ModelClass.Facility
 import android.content.Intent
+import android.os.Bundle
+import android.widget.Button
 import android.widget.ImageView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import com.google.firebase.firestore.FirebaseFirestore
+import com.ucb.unifiedcare.R
 import com.ucb.unifiedcare.unifiedcare.ProfilePageActivity
 
 class ParentsFacilityListActivity : AppCompatActivity() {
@@ -22,49 +21,33 @@ class ParentsFacilityListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_parents_facility_list)
 
-        // Initialize Firestore
-        firestore = FirebaseFirestore.getInstance()
-
-        // Set up RecyclerView
-        val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        adapter = FacilityAdapter(facilities)
-        recyclerView.adapter = adapter
-
-        // Fetch facility data from Firestore
-        fetchFacilities()
-
-       // val notif: ImageView = findViewById(R.id.notif)
-        val profile: ImageView = findViewById(R.id.profile_icon)
-        val intent = Intent (this, ProfilePageActivity::class.java)
-     //   val intent_notif = Intent (this, ProfilePageActivity::class.java)
+        val facilityBtn: Button = findViewById(R.id.facilitylistbtn)
+        val therapistBtn: Button = findViewById(R.id.therapistslistbtn)
+        val profile = findViewById<ImageView>(R.id.profile_icon)
+        val intent = Intent(this, ProfilePageActivity::class.java)
 
         profile.setOnClickListener{
             startActivity(intent)
         }
+
+        //initially load the facility list fragment
+        loadFragment(FacilityListFragment())
+
+        //set listeners for the buttons
+        facilityBtn.setOnClickListener{
+            loadFragment(FacilityListFragment())
+        }
+
+        therapistBtn.setOnClickListener{
+            loadFragment(ParentsTherapistListingFragment())
+        }
+
+
     }
-
-    private fun fetchFacilities() {
-        firestore.collection("Users")
-            .document("facility")
-            .collection("userFacility")
-            .get()
-            .addOnSuccessListener { documents ->
-                for (document in documents) {
-                    val name = document.getString("name") ?: ""
-                    val description = document.getString("description") ?: ""
-                    val imageUrl = document.getString("image") ?: ""
-                    val rating = 4.5f // Default rating, modify as needed
-
-                    // Create Facility object
-                    val facility = Facility(name, description, imageUrl, rating, false)
-                    facilities.add(facility)
-                }
-                // Notify adapter that data has changed
-                adapter.notifyDataSetChanged()
-            }
-            .addOnFailureListener { exception ->
-                Log.e("FirestoreError", "Error fetching facilities: ", exception)
-            }
+    // Method to load the specified fragment into the container
+    private fun loadFragment(fragment: Fragment) {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.facility_fragment_container, fragment)
+            .commit()
     }
 }

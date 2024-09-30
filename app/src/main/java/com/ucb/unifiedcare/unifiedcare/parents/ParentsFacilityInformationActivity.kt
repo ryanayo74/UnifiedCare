@@ -9,6 +9,8 @@ import android.view.View
 import android.view.WindowManager
 import android.widget.Button
 import android.widget.ImageButton
+import android.widget.TextView
+import android.widget.Toast
 import androidx.viewpager2.widget.ViewPager2
 import com.ucb.unifiedcare.R
 
@@ -17,6 +19,13 @@ class ParentsFacilityInformationActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_parents_facility_information)
+        //receive the intent
+        val desc = intent.getStringExtra("facilityDesc")
+
+        //display
+        val descTextView = findViewById<TextView>(R.id.desc)
+        descTextView.text = desc
+
         val viewPager: ViewPager2 = findViewById(R.id.viewPager)
         val btn_left: ImageButton = findViewById(R.id.arrowleft)
         val btn_right: ImageButton = findViewById(R.id.arrowright)
@@ -55,6 +64,7 @@ class ParentsFacilityInformationActivity : AppCompatActivity() {
         }
 
     }
+    private var selectedDay: String? =null
     private fun showCustomDialog(){
         val dialog = Dialog(this)
         val dialogView: View = LayoutInflater.from(this).inflate(R.layout.available_date_custom_dialog, null)
@@ -78,9 +88,42 @@ class ParentsFacilityInformationActivity : AppCompatActivity() {
         cancelBtn.setOnClickListener{
             dialog.dismiss()
         }
+        mondayBtn.setOnClickListener{
+            selectedDay = "Monday"
+        }
+        tueBtn.setOnClickListener{
+            selectedDay = "Tuesday"
+        }
+        wedBtn.setOnClickListener{
+            selectedDay = "Wednesday"
+        }
+        thurBtn.setOnClickListener{
+            selectedDay = "Thursday"
+        }
+        friBtn.setOnClickListener{
+            selectedDay = "Friday"
+        }
+        satBtn.setOnClickListener{
+            selectedDay = "Saturday"
+        }
+        sunBtn.setOnClickListener{
+            selectedDay = "Sunday   "
+        }
+        selectBtn.setOnClickListener{
+            if(selectedDay != null){
+                dialog.dismiss()
+                showCustomTimeDialog()
+            }else {
+                Toast.makeText(this, "Please select a day", Toast.LENGTH_SHORT).show()
+            }
+        }
         dialog.show()
     }
     private fun showCustomTimeDialog(){
+        val dialog = Dialog(this)
+        val dialogView: View = LayoutInflater.from(this).inflate(R.layout.available_time_custom_dialog, null)
+        dialog.setContentView(dialogView)
+
 
     }
 }
