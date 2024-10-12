@@ -8,18 +8,20 @@
     tools:context=".unifiedcare.therapist.TherapistAvailableScheduleActivity">
 
     <!-- Back Button -->
+
+    <!-- Month Text -->
     <ImageButton
         android:id="@+id/back_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
         android:background="?android:attr/selectableItemBackgroundBorderless"
         android:contentDescription="Back"
         android:src="@drawable/arrowleft"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Month Text -->
     <TextView
         android:id="@+id/month"
         android:layout_width="wrap_content"

@@ -13,11 +13,17 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.firestore.FirebaseFirestore
 import com.ucb.unifiedcare.R
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class ParentsTherapistListingFragment : Fragment() {
     private lateinit var firestore: FirebaseFirestore
     private lateinit var adapter: TherapistAdapter
     private val therapists = mutableListOf<Therapist>()
+
+    private val coroutineScope = CoroutineScope(Dispatchers.IO)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,7 +41,7 @@ class ParentsTherapistListingFragment : Fragment() {
         adapter = TherapistAdapter(therapists)  { therapist ->
             // Handle facility click
             val intent = Intent(context, TherapistInformationPageActivity::class.java)
-            intent.putExtra("therapistName", therapist.fullName)
+            intent.putExtra("therapistName", therapist.firstName)
             intent.putExtra("therapistType", therapist.therapyType)// Pass the facility ID or other details
             startActivity(intent)
         }
@@ -53,7 +59,7 @@ class ParentsTherapistListingFragment : Fragment() {
             .get()
             .addOnSuccessListener { documents ->
                 for (document in documents) {
-                    val name = document.getString("fullName") ?: ""
+                    val name = document.getString("firstName") ?: ""
                     val description = document.getString("therapyType") ?: ""
                    // val imageUrl = document.getString("imageUrl") ?: ""
                  //   val rating = 4.5f // Default rating, modify as needed
@@ -61,7 +67,7 @@ class ParentsTherapistListingFragment : Fragment() {
                     // Create Facility object
                     val therapist = Therapist(name, description)
                     therapists.add(therapist)
-                    
+
                 }
                 // Notify adapter that data has changed
                 adapter.notifyDataSetChanged()
@@ -70,5 +76,4 @@ class ParentsTherapistListingFragment : Fragment() {
                 Log.e("FirestoreError", "Error fetching facilities: ", exception)
             }
     }
-
 }

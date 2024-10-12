@@ -34,7 +34,7 @@ class TherapistHomePageActivity : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
         adapter = FacilityAdapter(facilities) { facility ->
             // Handle facility click
-            val intent = Intent(this, TherapistInformationPageActivity::class.java)
+            val intent = Intent(this, ParentsFacilityInformationActivity::class.java)
             intent.putExtra("facilityId", facility.name) // Pass the facility ID or other details
             startActivity(intent)
         }
@@ -61,10 +61,13 @@ class TherapistHomePageActivity : AppCompatActivity() {
                     val name = document.getString("name") ?: ""
                     val description = document.getString("description") ?: ""
                     val imageUrl = document.getString("image") ?: ""
+                    val address = document.getString("adress")?: ""
+                    val email = document.getString("email")?: ""
+                    val phoneNumber = document.getString("phoneNumber")?: ""
                     val rating = 4.5f // You can fetch or calculate this based on your own logic
 
                     // Create Facility object
-                    val facility = Facility(name, description, imageUrl, rating, false)
+                    val facility = Facility(name, description, imageUrl, email, phoneNumber, address, rating,false)
                     facilities.add(facility)
                 }
                 // Notify adapter that data has changed

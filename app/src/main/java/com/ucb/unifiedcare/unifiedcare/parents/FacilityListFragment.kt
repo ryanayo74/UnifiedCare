@@ -35,7 +35,10 @@ class FacilityListFragment : Fragment() {
         adapter = FacilityAdapter(facilities) { facility ->
             // Handle facility click
             val intent = Intent(context, ParentsFacilityInformationActivity::class.java)
-            intent.putExtra("facilityDesc", facility.description) // Pass the facility ID or other details
+            intent.putExtra("facilityDesc", facility.description)
+            intent.putExtra("phone_number", facility.phoneNumber)
+            intent.putExtra("email", facility.email)
+            intent.putExtra("address", facility.address)// Pass the facility ID or other details
             startActivity(intent)
         }
 
@@ -55,10 +58,14 @@ class FacilityListFragment : Fragment() {
                     val name = document.getString("name") ?: ""
                     val description = document.getString("description") ?: ""
                     val imageUrl = document.getString("image") ?: ""
+                    val address = document.getString("address")?: ""
+                    val email = document.getString("email")?: ""
+                    val phoneNumber = document.getString("phoneNumber")?: ""
+
                     val rating = 4.5f // Default rating, modify as needed
 
                     // Create Facility object
-                    val facility = Facility(name, description, imageUrl, rating, false)
+                    val facility = Facility(name, description, imageUrl, email, phoneNumber, address, rating,false)
                     facilities.add(facility)
                 }
                 // Notify adapter that data has changed
