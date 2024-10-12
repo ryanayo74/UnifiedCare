@@ -9,10 +9,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.firestore.FirebaseFirestore
 import com.ucb.unifiedcare.R
+import com.ucb.unifiedcare.unifiedcare.RetrofitInstance
+import kotlinx.coroutines.launch
+import kotlin.math.log
 
 class FacilityListFragment : Fragment() {
     private lateinit var firestore: FirebaseFirestore
@@ -48,31 +52,48 @@ class FacilityListFragment : Fragment() {
         fetchFacilities()
         return view
     }
-    private fun fetchFacilities() {
-        firestore.collection("Users")
-            .document("facility")
-            .collection("userFacility")
-            .get()
-            .addOnSuccessListener { documents ->
-                for (document in documents) {
-                    val name = document.getString("name") ?: ""
-                    val description = document.getString("description") ?: ""
-                    val imageUrl = document.getString("image") ?: ""
-                    val address = document.getString("address")?: ""
-                    val email = document.getString("email")?: ""
-                    val phoneNumber = document.getString("phoneNumber")?: ""
-
-                    val rating = 4.5f // Default rating, modify as needed
-
-                    // Create Facility object
-                    val facility = Facility(name, description, imageUrl, email, phoneNumber, address, rating,false)
-                    facilities.add(facility)
+    private fun fetchFacilities(){
+        lifecycleScope.launch {
+            try {
+                val response = RetrofitInstance.api.getFacilities("childsdetails")
+                if (response.isSuccessful) {
+                    response.body()?.let {
+                        facilities.addAll(it)
+                        adapter.notifyDataSetChanged()
+                    }
+                }  else {
+                    Log.e("API Error", "Error: ${response.message()}")
                 }
-                // Notify adapter that data has changed
-                adapter.notifyDataSetChanged()
+            }catch(e: Exception){
+                Log.e("Network Error", "Failed: ${e.message}")
             }
-            .addOnFailureListener { exception ->
-                Log.e("FirestoreError", "Error fetching facilities: ", exception)
-            }
+        }
     }
+//    private fun fetchFacilities() {
+//        firestore.collection("Users")
+//            .document("facility")
+//            .collection("userFacility")
+//            .get()
+//            .addOnSuccessListener { documents ->
+//                for (document in documents) {
+//                    val name = document.getString("name") ?: ""
+//                    val description = document.getString("description") ?: ""
+//                    val imageUrl = document.getString("image") ?: ""
+//                    val address = document.getString("address")?: ""
+//                    val email = document.getString("email")?: ""
+//                    val phoneNumber = document.getString("phoneNumber")?: ""
+//
+//                    val rating = 4.5f // Default rating, modify as needed
+//
+//                    // Create Facility object
+//                    val facility = Facility(name, description, imageUrl, email, phoneNumber, address, rating,false)
+//                    facilities.add(facility)
+//                }
+//                // Notify adapter that data has changed
+//                adapter.notifyDataSetChanged()
+//            }
+//            .addOnFailureListener { exception ->
+//                Log.e("FirestoreError", "Error fetching facilities: ", exception)
+//            }
+//    }
 }
