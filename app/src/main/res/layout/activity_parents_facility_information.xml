@@ -61,7 +61,6 @@
         android:src="@drawable/rectangle"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.528"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.971"
@@ -152,78 +151,21 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.767" />
 
-    <ImageView
-        android:layout_width="40dp"
-        android:layout_height="30dp"
-        android:src="@drawable/star"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.055"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.57" />
-
-    <ImageView
-        android:layout_width="40dp"
-        android:layout_height="30dp"
-        android:src="@drawable/star"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.056"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.708" />
-
-    <ImageView
-        android:layout_width="40dp"
-        android:layout_height="30dp"
-        android:src="@drawable/star"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.056"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.639" />
 
     <TextView
         android:id="@+id/desc"
         android:layout_width="299dp"
         android:layout_height="48dp"
-        android:text="Lorem ipsumfdjbfhdcb fvysheghc vkshvfgbhed fjh"
+        android:hint="Facility description details"
         android:textColor="@color/black"
         android:textSize="15sp"
+        android:padding="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.651"
+        app:layout_constraintHorizontal_bias="0.142"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.571" />
-
-    <TextView
-        android:layout_width="299dp"
-        android:layout_height="50dp"
-        android:text="vdhbvuhfjdvnguirj vefhkdns fchfuebfke fwehfujvnsdkfn "
-        android:textColor="@color/black"
-        android:textSize="15sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.651"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.642" />
-
-    <TextView
-        android:layout_width="299dp"
-        android:layout_height="48dp"
-        android:text="fuhvdvnfur dhueujfb efhsbdc edcsfhidvb ehfgvbfv vbshdbfyr feirbfu "
-        android:textColor="@color/black"
-        android:textSize="15sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.651"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.712" />
 
     <RelativeLayout
         android:id="@+id/contact_us_layout"
@@ -240,7 +182,7 @@
             android:scaleType="fitCenter"
             android:src="@drawable/phone" />
         <TextView
-            android:id="@+id/rating_text"
+            android:id="@+id/phone_number"
             android:layout_width="126dp"
             android:layout_height="34dp"
             android:text="5.0 Rating (200)"
@@ -268,7 +210,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginStart="15dp"
             android:layout_toRightOf="@+id/message_icon"
-            android:layout_below="@+id/rating_text"/>
+            android:layout_below="@+id/phone_number"/>
         <ImageButton
             android:id="@+id/email_icon"
             android:layout_width="47dp"
@@ -277,9 +219,9 @@
             android:background="?android:attr/selectableItemBackgroundBorderless"
             android:scaleType="fitCenter"
             android:src="@drawable/email"
-            android:layout_toRightOf="@+id/rating_text"/>
+            android:layout_toRightOf="@+id/phone_number"/>
         <TextView
-            android:id="@+id/email_text"
+            android:id="@+id/email"
             android:layout_width="126dp"
             android:layout_height="34dp"
             android:text="sample@gmail.com"
@@ -308,7 +250,7 @@
             android:layout_marginTop="10dp"
 
             android:layout_toRightOf="@+id/fb_icon"
-            android:layout_below="@+id/rating_text"/>
+            android:layout_below="@+id/phone_number"/>
 
     </RelativeLayout>
 

@@ -39,7 +39,7 @@ class TherapistAdapter(private val therapists: List<Therapist>, private val onIt
         private val therapistType: TextView = itemView.findViewById(R.id.therapy_type)
 
         fun bind(therapists: Therapist) {
-            fullName.text = therapists.fullName
+            fullName.text = therapists.firstName
             therapistType.text = therapists.therapyType
 
             // Use Glide to load the image from a URL

@@ -25,6 +25,7 @@ class ParentsFacilityListActivity : AppCompatActivity() {
         val therapistBtn: Button = findViewById(R.id.therapistslistbtn)
         val profile = findViewById<ImageView>(R.id.profile_icon)
         val intent = Intent(this, ProfilePageActivity::class.java)
+        var isSelected = false;
 
         profile.setOnClickListener{
             startActivity(intent)
@@ -36,13 +37,19 @@ class ParentsFacilityListActivity : AppCompatActivity() {
         //set listeners for the buttons
         facilityBtn.setOnClickListener{
             loadFragment(FacilityListFragment())
+
+            facilityBtn.setBackgroundResource(R.drawable.selected_button);
+            therapistBtn.setBackgroundResource(R.drawable.unselected_button);
+            isSelected = true;
         }
 
         therapistBtn.setOnClickListener{
             loadFragment(ParentsTherapistListingFragment())
+
+            therapistBtn.setBackgroundResource(R.drawable.selected_button);
+            facilityBtn.setBackgroundResource(R.drawable.unselected_button);
+            isSelected = true;
         }
-
-
     }
     // Method to load the specified fragment into the container
     private fun loadFragment(fragment: Fragment) {
@@ -51,3 +58,5 @@ class ParentsFacilityListActivity : AppCompatActivity() {
             .commit()
     }
 }
+
+

@@ -34,6 +34,7 @@ class FacilityAdapter(private val facilities: List<Facility>, private val onItem
         private val facilityRating: RatingBar = itemView.findViewById(R.id.ratingBar)
         private val favoriteButton: ToggleButton = itemView.findViewById(R.id.heartbtn)
 
+
         fun bind(facility: Facility) {
             facilityName.text = facility.name
             facilityDescription.text = facility.description
