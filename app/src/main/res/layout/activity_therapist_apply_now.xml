@@ -106,7 +106,7 @@
             android:layout_toRightOf="@+id/ratingBar"
             android:background="?android:attr/selectableItemBackgroundBorderless"
             android:scaleType="fitCenter"
-            android:src="@drawable/location"
+            android:src="@drawable/loc"
             android:layout_marginLeft="25dp"/>
 
         <TextView

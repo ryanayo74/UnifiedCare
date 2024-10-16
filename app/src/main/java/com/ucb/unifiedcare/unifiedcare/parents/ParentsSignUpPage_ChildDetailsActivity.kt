@@ -1,24 +1,42 @@
 package com.ucb.unifiedcare.unifiedcare.parents
 
+import ModelClass.NominatimResult
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
+import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
+import com.ucb.unifiedcare.MapFragment
 import com.ucb.unifiedcare.R
 import com.ucb.unifiedcare.unifiedcare.SignInActivity
+import com.ucb.unifiedcare.unifiedcare.therapist.NominatimRetrofit
+import org.osmdroid.config.Configuration
+import org.osmdroid.util.GeoPoint
+import org.osmdroid.views.overlay.Marker
+import org.osmdroid.tileprovider.tilesource.TileSourceFactory
+import org.osmdroid.api.IMapController
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class ParentsSignUpPage_ChildDetailsActivity : AppCompatActivity() {
 
     // Firestore and Auth instances
     private lateinit var db: FirebaseFirestore
     private lateinit var auth: FirebaseAuth
+    private lateinit var mapFragment: MapFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_parents_sign_up_page_child_details)
+
+        mapFragment = supportFragmentManager.findFragmentById(R.id.map_fragment) as MapFragment
+        mapFragment.view?.visibility = View.GONE // Initially hide the map
 
         // Initialize Firestore and Firebase Auth
         db = FirebaseFirestore.getInstance()
@@ -33,6 +51,24 @@ class ParentsSignUpPage_ChildDetailsActivity : AppCompatActivity() {
         val addressField = findViewById<EditText>(R.id.address)
         val registerButton = findViewById<Button>(R.id.registerbtn)
 
+        val geoCodeButton: ImageButton = findViewById(R.id.pinlocation)
+        geoCodeButton.setOnClickListener{
+            // Check the current visibility of the map
+            if (mapFragment.view?.visibility == View.VISIBLE) {
+                // If the map is currently visible, hide it
+                mapFragment.view?.visibility = View.GONE
+            } else {
+                // If the map is currently hidden, show it and perform geocoding
+                val address = addressField.text.toString().trim()
+                if (address.isNotEmpty()) {
+                    onGeocodeAddress(address)
+                    mapFragment.view?.visibility = View.VISIBLE // Show the map
+                } else {
+                    Toast.makeText(this, "Please enter an address", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+
         // Set up the special needs spinner
         val adapter = ArrayAdapter.createFromResource(
             this,
@@ -41,7 +77,6 @@ class ParentsSignUpPage_ChildDetailsActivity : AppCompatActivity() {
         )
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         specialNeedsSpinner.adapter = adapter
-
         // Set an onClickListener on the register button
         registerButton.setOnClickListener {
             val firstName = firstNameField.text.toString().trim()
@@ -73,6 +108,7 @@ class ParentsSignUpPage_ChildDetailsActivity : AppCompatActivity() {
             }
         }
     }
+
     private fun signUpWithEmail(
         email: String, password: String, firstName: String, lastName: String,
         specialNeeds: String, therapyType: String, ageRange: String, address: String,
@@ -174,5 +210,24 @@ class ParentsSignUpPage_ChildDetailsActivity : AppCompatActivity() {
         return firstName.isNotEmpty() && lastName.isNotEmpty() && specialNeeds.isNotEmpty() &&
                 therapyType.isNotEmpty() && ageRange.isNotEmpty() && address.isNotEmpty()
     }
+
+     fun onGeocodeAddress(address: String) {
+        mapFragment.geocodeAddress(address) { latitude, longitude ->
+            // Check if latitude and longitude are not null
+            if (latitude != null && longitude != null) {
+                // Log the coordinates
+                Log.d("Geocode", "Latitude: $latitude, Longitude: $longitude")
+                // Additional logic can be added here if needed
+            } else {
+                // Handle the case where the geocoding failed
+                Log.e("Geocode", "Geocoding failed for address: $address")
+            }
+
+
+        }
+    }
+
+
+
 }
 

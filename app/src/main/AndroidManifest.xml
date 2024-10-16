@@ -7,6 +7,9 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+
 
     <uses-feature
         android:name="android.hardware.telephony"
@@ -24,6 +27,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.UnifiedCare"
         tools:targetApi="34">
+        <meta-data android:name="osmdroid.basePath"
+            android:value="osmdroid" />
+        <meta-data android:name="osmdroid.cachePath"
+            android:value="osmdroid/cache" />
 
         <activity
             android:name=".unifiedcare.UnifiedCareAboutAppActivity"
