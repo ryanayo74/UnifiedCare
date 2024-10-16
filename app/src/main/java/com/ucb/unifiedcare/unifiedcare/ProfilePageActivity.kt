@@ -70,19 +70,16 @@ class ProfilePageActivity : AppCompatActivity() {
         privacy.setOnClickListener{
             startActivity(intent5)
         }
-
         // to open the image picker
         selectImageView.setOnClickListener {
             openImagePicker()
         }
-
         // Fetch and display the username and profile image
         fetchAndDisplayUserProfile()
 
         findViewById<TextView>(R.id.changeUserName).setOnClickListener {
             showChangeNameDialog()
         }
-
         findViewById<TextView>(R.id.changePassword).setOnClickListener {
             showChangePasswordDialog()
         }

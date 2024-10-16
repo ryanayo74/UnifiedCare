@@ -20,6 +20,5 @@ class WelcomePageActivity : AppCompatActivity() {
         buttonExplore.setOnClickListener {
             startActivity(intent)
         }
-
     }
 }
