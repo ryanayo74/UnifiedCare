@@ -17,7 +17,9 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.ucb.unifiedcare.R
+import com.ucb.unifiedcare.unifiedcare.parents.UpdateChildDetails
 import com.ucb.unifiedcare.unifiedcare.therapist.TherapistHomePageActivity
+import com.ucb.unifiedcare.unifiedcare.therapist.UpdateTherapistDetails
 
 class ProfilePageActivity : AppCompatActivity() {
     private lateinit var userName: TextView
@@ -27,6 +29,7 @@ class ProfilePageActivity : AppCompatActivity() {
     private lateinit var selectImageView: ImageView
     private lateinit var  signOutTextView: TextView
     private lateinit var backArrow : TextView
+    private lateinit var preference : TextView
     private lateinit var aboutApp:  TextView
     private lateinit var termsandcond: TextView
     private lateinit var privacy: TextView
@@ -43,6 +46,7 @@ class ProfilePageActivity : AppCompatActivity() {
         profileImageView = findViewById(R.id.profile)
         selectImageView = findViewById(R.id.circ_design2)
         signOutTextView = findViewById(R.id.topSignOut)
+        preference = findViewById(R.id.preferenceText)
         backArrow = findViewById(R.id.back_arrow)
         aboutApp = findViewById(R.id.AboutApp)
         termsandcond = findViewById(R.id.termAndCond)
@@ -55,19 +59,19 @@ class ProfilePageActivity : AppCompatActivity() {
             startActivity(intent)
         }
         val intent2 = Intent(this, TherapistHomePageActivity::class.java)
-        backArrow.setOnClickListener{
+        backArrow.setOnClickListener {
             startActivity(intent2)
         }
         val intent3 = Intent(this, UnifiedCareAboutAppActivity::class.java)
-        aboutApp.setOnClickListener{
+        aboutApp.setOnClickListener {
             startActivity(intent3)
         }
         val intent4 = Intent(this, UnifiedCareTermsandConditionActivity::class.java)
-        termsandcond.setOnClickListener{
+        termsandcond.setOnClickListener {
             startActivity(intent4)
         }
         val intent5 = Intent(this, UnifiedCarePrivacyPolicyActivity::class.java)
-        privacy.setOnClickListener{
+        privacy.setOnClickListener {
             startActivity(intent5)
         }
         // to open the image picker
@@ -83,7 +87,182 @@ class ProfilePageActivity : AppCompatActivity() {
         findViewById<TextView>(R.id.changePassword).setOnClickListener {
             showChangePasswordDialog()
         }
+
+
+        preference.setOnClickListener {
+            val user = FirebaseAuth.getInstance().currentUser
+
+
+            if (user != null) {
+                val userEmail = user.email // Get the email of the currently logged-in user
+
+
+                // Check if the user is a therapist
+                isUserTherapist(userEmail) { isTherapist ->
+                    if (isTherapist) {
+                        // User is a therapist, proceed to fetch therapist data
+                        if (userEmail != null) {
+                            fetchTherapistData(userEmail) { therapistData ->
+                                if (therapistData != null) {
+                                    val intent = Intent(
+                                        this,
+                                        UpdateTherapistDetails::class.java
+                                    ).apply {
+                                        putExtra(
+                                            "specialization",
+                                            therapistData["specialization"] as? String
+                                        )
+                                        putExtra("address", therapistData["address"] as? String)
+                                        putExtra(
+                                            "therapyType",
+                                            therapistData["therapyType"] as? String
+                                        )
+                                        putExtra(
+                                            "therapistEmail",
+                                            userEmail
+                                        ) // Pass the therapist email for updates
+                                    }
+                                    startActivity(intent)
+                                } else {
+                                    Toast.makeText(
+                                        this,
+                                        "No therapist details found.",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                }
+                            }
+                        }
+                    } else {
+                        // User is not a therapist, proceed to fetch child data
+                        fetchChildData { childData ->
+                            if (childData != null) {
+                                val intent = Intent(this, UpdateChildDetails::class.java).apply {
+                                    putExtra("childFirstName", childData["firstName"])
+                                    putExtra("childLastName", childData["lastName"])
+                                    putExtra("childSpecialNeeds", childData["specialNeeds"])
+                                    putExtra("childTherapyType", childData["therapyType"])
+                                    putExtra("childAgeRange", childData["ageRange"])
+                                    putExtra("childAddress", childData["address"])
+                                }
+                                startActivity(intent)
+                            } else {
+                                Toast.makeText(this, "No child details found.", Toast.LENGTH_SHORT)
+                                    .show()
+                            }
+                        }
+                    }
+                }
+            } else {
+                Toast.makeText(this, "User not authenticated.", Toast.LENGTH_SHORT).show()
+            }
+        }
+        val shareTextView: TextView = this.findViewById(R.id.shareThisApp)
+
+
+        shareTextView.setOnClickListener {
+            shareApp()
+        }
     }
+
+
+    private fun isUserTherapist(email: String?, callback: (Boolean) -> Unit) {
+        if (email == null) {
+            callback(false)
+            return
+        }
+
+
+        val db = FirebaseFirestore.getInstance()
+        db.collection("Users")
+            .document("therapists")
+            .collection("newUserTherapist")
+            .whereEqualTo("email", email)
+            .get()
+            .addOnSuccessListener { documents ->
+                // If a document exists with the email, the user is a therapist
+                callback(!documents.isEmpty)
+            }
+            .addOnFailureListener { exception ->
+                Log.e("CheckTherapistEmail", "Error checking email: ", exception)
+                callback(false) // Handle the error case
+            }
+    }
+
+
+
+
+    private fun shareApp() {
+        val shareBody = "Check out this amazing app: https://play.google.com/store/apps/details?id=com.example.yourapp"
+        val shareIntent = Intent(Intent.ACTION_SEND).apply {
+            type = "text/plain"
+            putExtra(Intent.EXTRA_SUBJECT, "Subject Here")
+            putExtra(Intent.EXTRA_TEXT, shareBody)
+        }
+        startActivity(Intent.createChooser(shareIntent, "Share via"))
+    }
+
+
+    private fun fetchChildData(callback: (Map<String, String>?) -> Unit) {
+        val parentEmail = FirebaseAuth.getInstance().currentUser?.email
+        if (parentEmail != null) {
+            val db = FirebaseFirestore.getInstance()
+            db.collection("Users")
+                .document("parents")
+                .collection("newUserParent")
+                .document(parentEmail)
+                .get()
+                .addOnSuccessListener { document ->
+                    if (document.exists()) {
+                        // Fetching childDetails from the document
+                        val childDetails = document.get("childDetails") as? Map<String, String>
+                        if (childDetails != null) {
+                            Log.d("FetchChildData", "Child details: $childDetails")
+                            callback(childDetails)
+                        } else {
+                            Log.w("FetchChildData", "No child details found in the document.")
+                            callback(null) // No child details found
+                        }
+                    } else {
+                        Log.w("FetchChildData", "Document does not exist.")
+                        callback(null) // Document does not exist
+                    }
+                }
+                .addOnFailureListener { exception ->
+                    Log.w("FetchChildData", "Error getting documents: ", exception)
+                    callback(null)
+                }
+        } else {
+            Log.w("FetchChildData", "No user is logged in.")
+            callback(null) // No user is logged in
+        }
+    }
+    private fun fetchTherapistData(therapistEmail: String, callback: (Map<String, Any>?) -> Unit) {
+        val db = FirebaseFirestore.getInstance()
+        // Directly reference the document using the email as the document ID
+        db.collection("Users")
+            .document("therapists")
+            .collection("newUserTherapist")
+            .document(therapistEmail) // Use the email as the document ID
+            .get()
+            .addOnSuccessListener { document ->
+                if (document.exists()) {
+                    val therapistDetails = document.data
+                    callback(therapistDetails as? Map<String, Any>)
+                } else {
+                    callback(null) // No document matches the email
+                }
+            }
+            .addOnFailureListener { exception ->
+                Log.e("FetchTherapistData", "Error fetching document: ", exception)
+                callback(null) // Error occurred
+            }
+    }
+
+
+
+
+
+
 
     private fun showChangeNameDialog() {
         // Inflate the dialog layout
