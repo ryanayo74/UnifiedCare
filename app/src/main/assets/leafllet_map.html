@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Leaflet Map</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+
+    <style>
+        /* Styling the close button */
+        #closeButton {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #f44336; /* Red */
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            z-index: 1000; /* Ensure it's on top of the map */
+        }
+
+        #map {
+            width: 100%;
+            height: 400px;
+        }
+    </style>
+</head>
+<body>
+<button id="closeButton">Close Map</button>
+<div id="map" style="width: 100%; height: 400px;"></div>
+
+<script>
+        var map = L.map('map').setView([51.505, -0.09], 13);
+        var marker = L.marker([51.505, -0.09], {draggable: true}).addTo(map);
+
+        // Initialize the tile layer
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        // Geocoder
+        var geocoder = new L.Control.Geocoder.Nominatim();
+
+        // Function to move marker based on address
+        function moveMarkerToAddress(address) {
+            geocoder.geocode(address, function(results) {
+                if (results.length > 0) {
+                    var latLng = results[0].center;
+                    marker.setLatLng(latLng); // Move the marker to the found location
+                    map.setView(latLng, 13); // Center the map on the found location
+                }
+            });
+        }
+
+        // When the marker is dragged, reverse geocode to get the address
+        marker.on('dragend', function(e) {
+            var latLng = marker.getLatLng();
+            geocoder.reverse(latLng, map.options.crs.scale(map.getZoom()), function(results) {
+                if (results.length > 0) {
+                    var address = results[0].name;
+                    // Send address back to the Android app
+                    Android.updateAddressField(address); // Assume a JS interface exists for this
+                }
+            });
+        });
+         // Handle Close Button Click
+        document.getElementById('closeButton').addEventListener('click', function() {
+            Android.closeMap(); // Call the Android JS interface method to close the map
+        });
+    </script>
+</body>
+</html>

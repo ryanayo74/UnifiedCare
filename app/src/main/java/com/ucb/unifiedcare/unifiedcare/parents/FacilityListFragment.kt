@@ -15,7 +15,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.firestore.FirebaseFirestore
 import com.ucb.unifiedcare.R
 import com.ucb.unifiedcare.unifiedcare.RetrofitInstance
+import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 import kotlin.math.log
 
 class FacilityListFragment : Fragment() {
@@ -43,57 +47,83 @@ class FacilityListFragment : Fragment() {
             intent.putExtra("phone_number", facility.phoneNumber)
             intent.putExtra("email", facility.email)
             intent.putExtra("address", facility.address)// Pass the facility ID or other details
+            intent.putExtra("id", facility.clinic_id)
             startActivity(intent)
         }
 
         recyclerView.adapter = adapter
-
         // Fetch facility data from Firestore
-        fetchFacilities()
+        fetchFacilitiesFromAPI()
         return view
     }
-    private fun fetchFacilities(){
+
+    private fun fetchFacilitiesFromAPI() {
         lifecycleScope.launch {
             try {
                 val response = RetrofitInstance.api.getFacilities("childsdetails")
                 if (response.isSuccessful) {
-                    response.body()?.let {
-                        facilities.addAll(it)
-                        adapter.notifyDataSetChanged()
+                    response.body()?.let { apiFacilities ->
+                        for (facility in apiFacilities) {
+                            // Use the facility.clinic_id to fetch the corresponding image
+                            fetchProfilePic(facility.clinic_id ) { imageUrl, address, phoneNumber, email ->
+                                if (imageUrl != null) {
+                                    facility.imageUrl = imageUrl
+                                }
+                                if (address != null) {
+                                    facility.address = address
+                                }
+                                if (phoneNumber != null) {
+                                    facility.phoneNumber = phoneNumber
+                                }
+                                if (email != null) {
+                                    facility.email = email
+                                }
+                                val intent = Intent(context, ParentsFacilityInformationActivity::class.java)
+                                intent.putExtra("address", facility.address)
+                                intent.putExtra("email", facility.email)
+                                intent.putExtra("phone_number", facility.phoneNumber)
+
+                                facilities.add(facility)
+
+                                // Notify the adapter when all data is ready
+                                if (facilities.size == apiFacilities.size) {
+                                    adapter.notifyDataSetChanged()  // Update RecyclerView
+                                }
+                            }
+                        }
                     }
-                }  else {
+                } else {
                     Log.e("API Error", "Error: ${response.message()}")
                 }
-            }catch(e: Exception){
+            } catch (e: Exception) {
                 Log.e("Network Error", "Failed: ${e.message}")
             }
         }
     }
-//    private fun fetchFacilities() {
-//        firestore.collection("Users")
-//            .document("facility")
-//            .collection("userFacility")
-//            .get()
-//            .addOnSuccessListener { documents ->
-//                for (document in documents) {
-//                    val name = document.getString("name") ?: ""
-//                    val description = document.getString("description") ?: ""
-//                    val imageUrl = document.getString("image") ?: ""
-//                    val address = document.getString("address")?: ""
-//                    val email = document.getString("email")?: ""
-//                    val phoneNumber = document.getString("phoneNumber")?: ""
-//
-//                    val rating = 4.5f // Default rating, modify as needed
-//
-//                    // Create Facility object
-//                    val facility = Facility(name, description, imageUrl, email, phoneNumber, address, rating,false)
-//                    facilities.add(facility)
-//                }
-//                // Notify adapter that data has changed
-//                adapter.notifyDataSetChanged()
-//            }
-//            .addOnFailureListener { exception ->
-//                Log.e("FirestoreError", "Error fetching facilities: ", exception)
-//            }
-//    }
+
+    private fun fetchProfilePic(clinicId: String,onResult: (String?, String?, String?, String?) -> Unit) {
+        val db = FirebaseFirestore.getInstance()
+
+        // Query the userFacility collection where the facility_id matches the clinicId
+        val userFacilityRef = db.collection("Users")
+            .document("facility")
+            .collection("userFacility")
+            .whereEqualTo("facility_id", clinicId)  // Query based on facility_id field
+
+        userFacilityRef.get().addOnSuccessListener { querySnapshot ->
+            if (!querySnapshot.isEmpty) {
+                // Assuming there's only one match for the facility_id
+                val documentSnapshot = querySnapshot.documents[0]
+                val imageUrl = documentSnapshot.getString("image")
+                val address = documentSnapshot.getString("address")
+                val phoneNumber = documentSnapshot.getString("phoneNumber")
+                val email = documentSnapshot.getString("email")
+                onResult(imageUrl, address, phoneNumber, email)
+            } else {
+                onResult(null, null, null, null) // No document found with matching facility_id
+            }
+        }.addOnFailureListener {
+            onResult(null, null, null, null)
+        }
+    }
 }
