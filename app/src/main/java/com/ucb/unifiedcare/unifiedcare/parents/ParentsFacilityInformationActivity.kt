@@ -8,34 +8,40 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.WindowManager
+import android.webkit.JavascriptInterface
+import android.webkit.WebView
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.viewpager2.widget.ViewPager2
+import com.google.firebase.firestore.DocumentSnapshot
+import com.google.firebase.firestore.FirebaseFirestore
 import com.ucb.unifiedcare.R
 
 class ParentsFacilityInformationActivity : AppCompatActivity() {
     private var currentPage = 0
+    private lateinit var webView: WebView
+    var isMapVisible = false
+    val db = FirebaseFirestore.getInstance()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_parents_facility_information)
 
         //buttons
         val call:ImageButton = findViewById(R.id.call_icon)
-
         val e_mail:ImageButton=findViewById(R.id.email_icon)
-
-
 
         //receive the intent
         val desc = intent.getStringExtra("facilityDesc")
         val address = intent.getStringExtra("address")
         val number = intent.getStringExtra("phone_number")
         val email = intent.getStringExtra("email")
+        val id = intent.getStringExtra("id")
 
         //display
         val descTextView = findViewById<TextView>(R.id.desc)
@@ -97,114 +103,194 @@ class ParentsFacilityInformationActivity : AppCompatActivity() {
         }
 
         slotBtn.setOnClickListener{
-            showCustomDialog()
+            if (id != null) {
+                Log.d("ID", "$id")
+                showAvailableDaysDialog(id)
+            }
         }
+
+        //MAP implementation
+        webView = findViewById(R.id.webview)
+        // Set up the WebView settings
+        webView.settings.javaScriptEnabled = true
+        webView.settings.allowFileAccess = true
+        webView.settings.allowContentAccess = true
+
+        // Load the leaflet map HTML file
+        webView.loadUrl("file:///android_asset/leafllet_map.html")
+
+        // Hide map initially
+        webView.visibility = View.GONE
+
+        // Show map when EditText is clicked
+        addressTextView.setOnClickListener {
+            webView.visibility = View.VISIBLE
+            isMapVisible = true
+        }
+
+        // Handle manual address input
+        addressTextView.setOnKeyListener { _, keyCode, event ->
+            if (event.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
+                val userAddress = addressTextView.text.toString().trim()
+                if (userAddress.isNotEmpty()) {
+                    val encodedAddress = Uri.encode(userAddress)
+                    webView.evaluateJavascript("javascript:moveMarkerToAddress('$encodedAddress');", null)
+                }
+                true
+            } else {
+                false
+            }
+        }
+        // Add this inside your onCreate method after initializing the WebView
+        webView.addJavascriptInterface(object {
+            @JavascriptInterface
+            fun updateAddressField(address: String) {
+                runOnUiThread {
+                    addressTextView.setText(address)  // Update the EditText with the address
+                }
+            }
+        }, "Android")
+
+        // Add this inside your onCreate method after initializing the WebView
+        webView.addJavascriptInterface(object {
+            @JavascriptInterface
+            fun closeMap() {
+                runOnUiThread {
+                    webView.visibility = View.GONE  // Hide the WebView (map)
+                    isMapVisible = false  // Update the visibility flag
+                }
+            }
+        }, "Android")
+        //END OF MAP IMPLEMENTATION
     }
+
     private var selectedDay: String? =null
     private var selectedTime: String? =null
-    private fun showCustomDialog(){
-        val dialog = Dialog(this)
-        val dialogView: View = LayoutInflater.from(this).inflate(R.layout.available_date_custom_dialog, null)
-        dialog.setContentView(dialogView)
 
-        val window = dialog.window
-        window?.setLayout(
-            WindowManager.LayoutParams.MATCH_PARENT,  // Width
-            WindowManager.LayoutParams.WRAP_CONTENT   // Height
-        )
-        var isSelected = false
-        val selectedColor = resources.getColor(R.color.light_pink)
-        val defaultColor = resources.getColor(R.color.white)
-        val selectBtn: Button = dialogView.findViewById(R.id.select_btn)
-        val cancelBtn: Button = dialogView.findViewById(R.id.cancel_btn)
-        val mondayBtn: ImageButton = dialogView.findViewById(R.id.mon)
-        val tueBtn: ImageButton = dialogView.findViewById(R.id.tue)
-        val wedBtn: ImageButton = dialogView.findViewById(R.id.wed)
-        val thurBtn: ImageButton = dialogView.findViewById(R.id.thur)
-        val friBtn: ImageButton = dialogView.findViewById(R.id.fri)
-        val satBtn: ImageButton = dialogView.findViewById(R.id.sat)
-        val sunBtn: ImageButton = dialogView.findViewById(R.id.sun)
+    //fetch schedule availability from firebase
+    fun fetchAvailableSched(facilityId: String, onResult: (Map<String, List<Map<String, String>>>) -> Unit) {
+        Log.d("FunctionCall", "fetchAvailableSched called for facilityId: $facilityId")
+        db.collection("Users")
+            .document("facility")
+            .collection("userFacility")
+            .document(facilityId)  // Document ID is the same as facilityId (e.g., "FirstFacility")
+            .collection("scheduleAvailability")
+            .document(facilityId)  // Schedule doc ID matches facilityId
+            .get()
+            .addOnSuccessListener { document  ->
+                if (document .exists()) {
+                    Log.d("FirestoreDocument", "Document data: ${document .data}")
 
-        cancelBtn.setOnClickListener{
-            dialog.dismiss()
-        }
-        mondayBtn.setOnClickListener{
-            selectedDay = "Monday"
-            isSelected = !isSelected
-            if (isSelected){
-                mondayBtn.setColorFilter(selectedColor)
-            }else{
-                mondayBtn.setColorFilter(defaultColor)
-            }
-        }
+                    // Cast the availabilitySchedule to the correct type
+                    val availabilitySchedule = document .get("availabilitySchedule") as? Map<String, List<Map<String, String>>>
+                    Log.d("AvailabilitySchedule", "Availability schedule: $availabilitySchedule")
 
-        tueBtn.setOnClickListener{
-            selectedDay = "Tuesday"
-            isSelected = !isSelected
-            if (isSelected){
-                tueBtn.setColorFilter(selectedColor)
-            }else{
-                tueBtn.setColorFilter(defaultColor)
+                    // Pass the result or an empty map if the casting fails
+                    onResult(availabilitySchedule ?: emptyMap())
+                } else {
+                    Log.w("FirestoreDocument", "No such document")
+                    // No document exists, return an empty map
+                    onResult(emptyMap())
+                }
             }
-        }
-        wedBtn.setOnClickListener{
-            selectedDay = "Wednesday"
-            isSelected = !isSelected
-            if (isSelected){
-                wedBtn.setColorFilter(selectedColor)
-            }else{
-                wedBtn.setColorFilter(defaultColor)
+            .addOnFailureListener { exception ->
+                Log.e("Firestore", "Error fetching available schedule", exception)
+                // In case of failure, return an empty map
+                onResult(emptyMap())
             }
-        }
-        thurBtn.setOnClickListener{
-            selectedDay = "Thursday"
-            isSelected = !isSelected
-            if (isSelected){
-                thurBtn.setColorFilter(selectedColor)
-            }else{
-                thurBtn.setColorFilter(defaultColor)
-            }
-        }
-        friBtn.setOnClickListener{
-            selectedDay = "Friday"
-            isSelected = !isSelected
-            if (isSelected){
-                friBtn.setColorFilter(selectedColor)
-            }else{
-                friBtn.setColorFilter(defaultColor)
-            }
-        }
-        satBtn.setOnClickListener{
-            selectedDay = "Saturday"
-            isSelected = !isSelected
-            if (isSelected){
-                satBtn.setColorFilter(selectedColor)
-            }else{
-                satBtn.setColorFilter(defaultColor)
-            }
-        }
-        sunBtn.setOnClickListener{
-            selectedDay = "Sunday"
-            isSelected = !isSelected
-            if (isSelected){
-                sunBtn.setColorFilter(selectedColor)
-            }else{
-                sunBtn.setColorFilter(defaultColor)
-            }
-        }
-        selectBtn.setOnClickListener{
-            Log.d("SelectedDay", "Current selected day: $selectedDay")
-
-            if(selectedDay != null){
-                dialog.dismiss()
-                showCustomTimeDialog()
-            }else {
-                Toast.makeText(this, "Please select a day", Toast.LENGTH_SHORT).show()
-            }
-        }
-        dialog.show()
     }
-    private fun showCustomTimeDialog(){
+
+    //show available days
+    private fun showAvailableDaysDialog(facilityId: String){
+        fetchAvailableSched(facilityId) {availabilitySchedule->
+            val dialog = Dialog(this)
+            val dialogView: View = LayoutInflater.from(this).inflate(R.layout.available_date_custom_dialog, null)
+            dialog.setContentView(dialogView)
+
+            val window = dialog.window
+            window?.setLayout(
+                WindowManager.LayoutParams.MATCH_PARENT,  // Width
+                WindowManager.LayoutParams.WRAP_CONTENT   // Height
+            )
+            var isSelected = false
+            val selectedColor = resources.getColor(R.color.light_pink)
+            val defaultColor = resources.getColor(R.color.white)
+            val selectBtn: Button = dialogView.findViewById(R.id.select_btn)
+            val cancelBtn: Button = dialogView.findViewById(R.id.cancel_btn)
+            val mondayBtn: ImageButton = dialogView.findViewById(R.id.mon)
+            val tueBtn: ImageButton = dialogView.findViewById(R.id.tue)
+            val wedBtn: ImageButton = dialogView.findViewById(R.id.wed)
+            val thurBtn: ImageButton = dialogView.findViewById(R.id.thur)
+            val friBtn: ImageButton = dialogView.findViewById(R.id.fri)
+            val satBtn: ImageButton = dialogView.findViewById(R.id.sat)
+            val sunBtn: ImageButton = dialogView.findViewById(R.id.sun)
+
+            //button mapping to firebase days label
+            val dayButtons = mapOf(
+                "Monday" to mondayBtn,
+                "Tuesday" to tueBtn,
+                "Wednesday" to wedBtn,
+                "Thursday" to thurBtn,
+                "Friday" to friBtn,
+                "Saturday" to satBtn,
+                "Sunday" to sunBtn
+            )
+
+            //disable buttons for days that have no available time slots
+            for((day, button) in dayButtons){
+                Log.d("DayCheck", "Checking for day: $day")
+                val timeSlots = availabilitySchedule[day]
+                Log.d("DayTimeSlots", "Day: $day, TimeSlots: $timeSlots")
+
+                val validTimeSlots = timeSlots?.filter { slot ->
+                    val start = slot["start"] ?: ""
+                    val end = slot["end"] ?: ""
+//                  Log.d("SlotCheck", "Day: $day, Start: $start, End: $end")
+                    start.isNotEmpty() && end.isNotEmpty()
+                }
+                Log.d("ValidTimeSlots", "Day: $day, Valid TimeSlots: $validTimeSlots")
+
+            if (validTimeSlots.isNullOrEmpty()) {
+                // Disable button
+                button.isEnabled = false
+                button.alpha = 0.5f
+            } else {
+                button.isEnabled = true
+                button.alpha = 1.0f
+            }
+                //set onclick for each enabled button
+                button.setOnClickListener{
+                    if (button.isEnabled){
+                        selectedDay = day
+                        isSelected = !isSelected
+
+                        //toggle color
+                        if(isSelected){
+                            button.setColorFilter(selectedColor)
+                        }else{
+                            button.setColorFilter(defaultColor)
+                        }
+                    }
+                }
+            }
+            cancelBtn.setOnClickListener{
+                dialog.dismiss()
+            }
+            selectBtn.setOnClickListener{
+                Log.d("SelectedDay", "Current selected day: $selectedDay")
+
+                if(selectedDay != null){
+                    dialog.dismiss()
+                   // showCustomTimeDialog()
+                }else {
+                    Toast.makeText(this, "Please select a day", Toast.LENGTH_SHORT).show()
+                }
+            }
+            dialog.show()
+        }
+    }
+
+    private fun showCustomTimeDialog(selectedDay: String){
         val dialog = Dialog(this)
         val dialogView: View = LayoutInflater.from(this).inflate(R.layout.available_time_custom_dialog, null)
         dialog.setContentView(dialogView)

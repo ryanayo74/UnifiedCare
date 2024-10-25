@@ -116,10 +116,19 @@
             android:textSize="15sp"
            android:layout_below="@+id/location"
             android:layout_toRightOf="@+id/ratingBar"/>
+
     </RelativeLayout>
-
-
-
+    <WebView
+        android:id="@+id/webview"
+        android:layout_width="300dp"
+        android:layout_height="500dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.009"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.731"
+        android:visibility="gone"/>
     <TextView
         android:layout_width="206dp"
         android:layout_height="47dp"

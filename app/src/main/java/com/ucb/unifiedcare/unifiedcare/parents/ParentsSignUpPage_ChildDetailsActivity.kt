@@ -2,12 +2,17 @@ package com.ucb.unifiedcare.unifiedcare.parents
 
 import ModelClass.NominatimResult
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
+import android.view.KeyEvent
 import android.view.View
+import android.webkit.JavascriptInterface
 import android.widget.*
+import android.webkit.WebSettings
+import android.webkit.WebView
+import android.webkit.WebViewClient
 import androidx.appcompat.app.AppCompatActivity
-
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
@@ -29,18 +34,12 @@ class ParentsSignUpPage_ChildDetailsActivity : AppCompatActivity() {
     // Firestore and Auth instances
     private lateinit var db: FirebaseFirestore
     private lateinit var auth: FirebaseAuth
-    private lateinit var mapFragment: MapFragment
+    private lateinit var webView: WebView
+    var isMapVisible = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_parents_sign_up_page_child_details)
-
-        mapFragment = supportFragmentManager.findFragmentById(R.id.map_fragment) as MapFragment
-        mapFragment.view?.visibility = View.GONE // Initially hide the map
-
-        // Initialize Firestore and Firebase Auth
-        db = FirebaseFirestore.getInstance()
-        auth = FirebaseAuth.getInstance()
 
         // Retrieve input fields and other views
         val firstNameField = findViewById<EditText>(R.id.c_frstName)
@@ -51,23 +50,64 @@ class ParentsSignUpPage_ChildDetailsActivity : AppCompatActivity() {
         val addressField = findViewById<EditText>(R.id.address)
         val registerButton = findViewById<Button>(R.id.registerbtn)
 
-        val geoCodeButton: ImageButton = findViewById(R.id.pinlocation)
-        geoCodeButton.setOnClickListener{
-            // Check the current visibility of the map
-            if (mapFragment.view?.visibility == View.VISIBLE) {
-                // If the map is currently visible, hide it
-                mapFragment.view?.visibility = View.GONE
-            } else {
-                // If the map is currently hidden, show it and perform geocoding
-                val address = addressField.text.toString().trim()
-                if (address.isNotEmpty()) {
-                    onGeocodeAddress(address)
-                    mapFragment.view?.visibility = View.VISIBLE // Show the map
-                } else {
-                    Toast.makeText(this, "Please enter an address", Toast.LENGTH_SHORT).show()
+        // Initialize Firestore and Firebase Auth
+        db = FirebaseFirestore.getInstance()
+        auth = FirebaseAuth.getInstance()
+
+        //MAP implementation
+        webView = findViewById(R.id.webview)
+        // Set up the WebView settings
+        webView.settings.javaScriptEnabled = true
+        webView.settings.allowFileAccess = true
+        webView.settings.allowContentAccess = true
+
+        // Load the leaflet map HTML file
+        webView.loadUrl("file:///android_asset/leafllet_map.html")
+
+        // Hide map initially
+        webView.visibility = View.GONE
+
+        // Show map when EditText is clicked
+        addressField.setOnClickListener {
+            webView.visibility = View.VISIBLE
+            isMapVisible = true
+        }
+
+        // Handle manual address input
+        addressField.setOnKeyListener { _, keyCode, event ->
+            if (event.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
+                val userAddress = addressField.text.toString().trim()
+                if (userAddress.isNotEmpty()) {
+                    val encodedAddress = Uri.encode(userAddress)
+                    webView.evaluateJavascript("javascript:moveMarkerToAddress('$encodedAddress');", null)
                 }
+                true
+            } else {
+                false
             }
         }
+        // Add this inside your onCreate method after initializing the WebView
+        webView.addJavascriptInterface(object {
+            @JavascriptInterface
+            fun updateAddressField(address: String) {
+                runOnUiThread {
+                    addressField.setText(address)  // Update the EditText with the address
+                }
+            }
+        }, "Android")
+
+        // Add this inside your onCreate method after initializing the WebView
+        webView.addJavascriptInterface(object {
+            @JavascriptInterface
+            fun closeMap() {
+                runOnUiThread {
+                    webView.visibility = View.GONE  // Hide the WebView (map)
+                    isMapVisible = false  // Update the visibility flag
+                }
+            }
+        }, "Android")
+        //END OF MAP IMPLEMENTATION
+
 
         // Set up the special needs spinner
         val adapter = ArrayAdapter.createFromResource(
@@ -210,24 +250,5 @@ class ParentsSignUpPage_ChildDetailsActivity : AppCompatActivity() {
         return firstName.isNotEmpty() && lastName.isNotEmpty() && specialNeeds.isNotEmpty() &&
                 therapyType.isNotEmpty() && ageRange.isNotEmpty() && address.isNotEmpty()
     }
-
-     fun onGeocodeAddress(address: String) {
-        mapFragment.geocodeAddress(address) { latitude, longitude ->
-            // Check if latitude and longitude are not null
-            if (latitude != null && longitude != null) {
-                // Log the coordinates
-                Log.d("Geocode", "Latitude: $latitude, Longitude: $longitude")
-                // Additional logic can be added here if needed
-            } else {
-                // Handle the case where the geocoding failed
-                Log.e("Geocode", "Geocoding failed for address: $address")
-            }
-
-
-        }
-    }
-
-
-
 }
 
