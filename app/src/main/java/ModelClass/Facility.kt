@@ -3,6 +3,7 @@ package ModelClass
 import android.location.Address
 
 data class Facility(
+    var docId: String,
     val clinic_id: String,
     val name: String,
     val description: String,

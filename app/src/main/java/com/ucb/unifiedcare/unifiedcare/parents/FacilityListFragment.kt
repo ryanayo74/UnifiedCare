@@ -40,14 +40,14 @@ class FacilityListFragment : Fragment() {
         val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(context)
         // Adapter with click listener
-        adapter = FacilityAdapter(facilities) { facility ->
+        adapter = FacilityAdapter(facilities) { document ->
             // Handle facility click
             val intent = Intent(context, ParentsFacilityInformationActivity::class.java)
-            intent.putExtra("facilityDesc", facility.description)
-            intent.putExtra("phone_number", facility.phoneNumber)
-            intent.putExtra("email", facility.email)
-            intent.putExtra("address", facility.address)// Pass the facility ID or other details
-            intent.putExtra("id", facility.clinic_id)
+            intent.putExtra("facilityDesc", document.description)
+            intent.putExtra("phone_number", document.phoneNumber)
+            intent.putExtra("email", document.email)
+            intent.putExtra("address", document.address)
+            intent.putExtra("id", document.docId)
             startActivity(intent)
         }
 
@@ -65,7 +65,7 @@ class FacilityListFragment : Fragment() {
                     response.body()?.let { apiFacilities ->
                         for (facility in apiFacilities) {
                             // Use the facility.clinic_id to fetch the corresponding image
-                            fetchProfilePic(facility.clinic_id ) { imageUrl, address, phoneNumber, email ->
+                            fetchProfilePic(facility.clinic_id ) { docId, imageUrl, address, phoneNumber, email ->
                                 if (imageUrl != null) {
                                     facility.imageUrl = imageUrl
                                 }
@@ -77,6 +77,9 @@ class FacilityListFragment : Fragment() {
                                 }
                                 if (email != null) {
                                     facility.email = email
+                                }
+                                if (docId != null) {
+                                    facility.docId = docId
                                 }
                                 val intent = Intent(context, ParentsFacilityInformationActivity::class.java)
                                 intent.putExtra("address", facility.address)
@@ -101,7 +104,7 @@ class FacilityListFragment : Fragment() {
         }
     }
 
-    private fun fetchProfilePic(clinicId: String,onResult: (String?, String?, String?, String?) -> Unit) {
+    private fun fetchProfilePic(clinicId: String,onResult: (String?, String?, String?, String?, String?) -> Unit) {
         val db = FirebaseFirestore.getInstance()
 
         // Query the userFacility collection where the facility_id matches the clinicId
@@ -114,16 +117,18 @@ class FacilityListFragment : Fragment() {
             if (!querySnapshot.isEmpty) {
                 // Assuming there's only one match for the facility_id
                 val documentSnapshot = querySnapshot.documents[0]
+                val docId = documentSnapshot.id
+                Log.d("docId", docId)
                 val imageUrl = documentSnapshot.getString("image")
                 val address = documentSnapshot.getString("address")
                 val phoneNumber = documentSnapshot.getString("phoneNumber")
                 val email = documentSnapshot.getString("email")
-                onResult(imageUrl, address, phoneNumber, email)
+                onResult(docId, imageUrl, address, phoneNumber, email)
             } else {
-                onResult(null, null, null, null) // No document found with matching facility_id
+                onResult(null, null, null, null, null) // No document found with matching facility_id
             }
         }.addOnFailureListener {
-            onResult(null, null, null, null)
+            onResult(null, null, null, null, null)
         }
     }
 }

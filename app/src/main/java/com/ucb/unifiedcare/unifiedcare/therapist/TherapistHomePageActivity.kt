@@ -35,6 +35,7 @@ class TherapistHomePageActivity : AppCompatActivity() {
         adapter = FacilityAdapter(facilities) { facility ->
             // Handle facility click
             val intent = Intent(this, ParentsFacilityInformationActivity::class.java)
+
             intent.putExtra("facilityId", facility.name) // Pass the facility ID or other details
             startActivity(intent)
         }
@@ -58,6 +59,7 @@ class TherapistHomePageActivity : AppCompatActivity() {
             .get()
             .addOnSuccessListener { documents ->
                 for (document in documents) {
+                    val docId = document.id
                     val id = document.getString("id") ?: ""
                     val name = document.getString("name") ?: ""
                     val description = document.getString("description") ?: ""
@@ -68,7 +70,7 @@ class TherapistHomePageActivity : AppCompatActivity() {
                     val rating = 4.5f // You can fetch or calculate this based on your own logic
 
                     // Create Facility object
-                    val facility = Facility(id, name, description, imageUrl, email, phoneNumber, address, rating,false)
+                    val facility = Facility(docId, id, name, description, imageUrl, email, phoneNumber, address, rating,false)
                     facilities.add(facility)
                 }
                 // Notify adapter that data has changed

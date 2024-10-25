@@ -168,90 +168,37 @@ class ParentsFacilityInformationActivity : AppCompatActivity() {
     private var selectedTime: String? =null
 
     //fetch schedule availability from firebase
-//    fun fetchAvailableSched(facilityId: String, onResult: (Map<String, List<Map<String, String>>>) -> Unit) {
-//        Log.d("FunctionCall", "fetchAvailableSched called for facilityId: $facilityId")
-//        db.collection("userFacility")
-//            .document("FacilityHeredia")
-//            .collection("scheduleAvailability")
-//            .document("FacilityHeredia")
-//            .get()
-//            .addOnSuccessListener { document ->
-//                if (document.exists()) {
-//                    Log.d("FirestoreDocument", "Document data: ${document.data}")
-//
-//                    // Cast the availabilitySchedule to the correct type
-//                    val availabilitySchedule = document.get("availabilitySchedule") as? Map<String, List<Map<String, String>>>
-//                    Log.d("AvailabilitySchedule", "Availability schedule: $availabilitySchedule")
-//
-//                    // Pass the result or an empty map if the casting fails
-//                    onResult(availabilitySchedule ?: emptyMap())
-//                } else {
-//                    Log.w("FirestoreDocument", "No such document")
-//                    // No document exists, return an empty map
-//                    onResult(emptyMap())
-//                }
-//            }
-//            .addOnFailureListener { exception ->
-//                Log.e("Firestore", "Error fetching available schedule", exception)
-//                // In case of failure, return an empty map
-//                onResult(emptyMap())
-//            }
-//    }
     fun fetchAvailableSched(facilityId: String, onResult: (Map<String, List<Map<String, String>>>) -> Unit) {
-        // Query documents where facility_id matches the provided facilityId
-        db.collection("UserFacility")
-            .whereEqualTo("facility_id", facilityId)
+        Log.d("FunctionCall", "fetchAvailableSched called for facilityId: $facilityId")
+        db.collection("Users")
+            .document("facility")
+            .collection("userFacility")
+            .document(facilityId)  // Document ID is the same as facilityId (e.g., "FirstFacility")
+            .collection("scheduleAvailability")
+            .document(facilityId)  // Schedule doc ID matches facilityId
             .get()
-            .addOnSuccessListener { querySnapshot ->
-                if (!querySnapshot.isEmpty) {
-                    var correctDocument: DocumentSnapshot?=null
+            .addOnSuccessListener { document  ->
+                if (document .exists()) {
+                    Log.d("FirestoreDocument", "Document data: ${document .data}")
 
-                    // Loop through the documents and find the correct one
-                    for (document in querySnapshot.documents) {
-                        if (document.getString("facility_id") == facilityId) {
-                            correctDocument = document
-                            break
-                        }
-                    }
+                    // Cast the availabilitySchedule to the correct type
+                    val availabilitySchedule = document .get("availabilitySchedule") as? Map<String, List<Map<String, String>>>
+                    Log.d("AvailabilitySchedule", "Availability schedule: $availabilitySchedule")
 
-                    if (correctDocument != null) {
-                        val documentId = correctDocument.id  // Use the correct document ID (e.g., "FacilityHeredia")
-
-                        // Now fetch scheduleAvailability for this document
-                        db.collection("UserFacility")
-                            .document(documentId)
-                            .collection("scheduleAvailability")
-                            .document(documentId)
-                            .get()
-                            .addOnSuccessListener { scheduleDocument ->
-                                if (scheduleDocument.exists()) {
-                                    val availabilitySchedule = scheduleDocument.get("availabilitySchedule") as? Map<String, List<Map<String, String>>>
-                                    Log.d("AvailabilitySchedule", "Availability schedule: $availabilitySchedule")
-                                    onResult(availabilitySchedule ?: emptyMap())
-                                } else {
-                                    Log.w("FirestoreDocument", "No such schedule document")
-                                    onResult(emptyMap())
-                                }
-                            }
-                            .addOnFailureListener { exception ->
-                                Log.e("Firestore", "Error fetching available schedule", exception)
-                                onResult(emptyMap())
-                            }
-                    } else {
-                        Log.w("Firestore", "No matching document found for facility_id: $facilityId")
-                        onResult(emptyMap())
-                    }
+                    // Pass the result or an empty map if the casting fails
+                    onResult(availabilitySchedule ?: emptyMap())
                 } else {
-                    Log.w("Firestore", "No documents found with facility_id: $facilityId")
+                    Log.w("FirestoreDocument", "No such document")
+                    // No document exists, return an empty map
                     onResult(emptyMap())
                 }
             }
             .addOnFailureListener { exception ->
-                Log.e("Firestore", "Error finding facility", exception)
+                Log.e("Firestore", "Error fetching available schedule", exception)
+                // In case of failure, return an empty map
                 onResult(emptyMap())
             }
     }
-
 
     //show available days
     private fun showAvailableDaysDialog(facilityId: String){
@@ -296,10 +243,10 @@ class ParentsFacilityInformationActivity : AppCompatActivity() {
                 Log.d("DayTimeSlots", "Day: $day, TimeSlots: $timeSlots")
 
                 val validTimeSlots = timeSlots?.filter { slot ->
-                val start = slot["start"] ?: ""
-                val end = slot["end"] ?: ""
-                    Log.d("SlotCheck", "Day: $day, Start: $start, End: $end")
-                start.isNotEmpty() && end.isNotEmpty()
+                    val start = slot["start"] ?: ""
+                    val end = slot["end"] ?: ""
+//                  Log.d("SlotCheck", "Day: $day, Start: $start, End: $end")
+                    start.isNotEmpty() && end.isNotEmpty()
                 }
                 Log.d("ValidTimeSlots", "Day: $day, Valid TimeSlots: $validTimeSlots")
 
@@ -334,7 +281,7 @@ class ParentsFacilityInformationActivity : AppCompatActivity() {
 
                 if(selectedDay != null){
                     dialog.dismiss()
-                    showCustomTimeDialog()
+                   // showCustomTimeDialog()
                 }else {
                     Toast.makeText(this, "Please select a day", Toast.LENGTH_SHORT).show()
                 }
@@ -343,7 +290,7 @@ class ParentsFacilityInformationActivity : AppCompatActivity() {
         }
     }
 
-    private fun showCustomTimeDialog(){
+    private fun showCustomTimeDialog(selectedDay: String){
         val dialog = Dialog(this)
         val dialogView: View = LayoutInflater.from(this).inflate(R.layout.available_time_custom_dialog, null)
         dialog.setContentView(dialogView)
